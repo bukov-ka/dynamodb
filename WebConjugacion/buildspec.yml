@@ -3,9 +3,9 @@ version: 0.2
 phases:
   build:
     commands:
-      - dotnet restore D:/projects/aws_test/WebConjugacion/WebConjugacion.sln
-      - dotnet build D:/projects/aws_test/WebConjugacion/WebConjugacion.sln
-      - dotnet publish D:/projects/aws_test/WebConjugacion/WebConjugacion.sln
+      - dotnet restore WebConjugacion\WebConjugacion.sln
+      - dotnet build WebConjugacion\WebConjugacion.sln
+      - dotnet publish WebConjugacion\WebConjugacion.sln
 artifacts:
   files:
-    - ./bin/Debug/netcoreapp3.1/publish/*
+    - .\bin\Debug\netcoreapp3.1\publish\*
