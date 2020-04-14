@@ -8,4 +8,4 @@ phases:
       - dotnet publish WebConjugacion/WebConjugacion.sln
 artifacts:
   files:
-    - ./bin/Debug/netcoreapp3.1/publish/*
+    - WebConjugacion/bin/Debug/netcoreapp3.1/publish/*
