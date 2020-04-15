@@ -10,3 +10,6 @@ phases:
 artifacts:
   files:
     - ./aws-publish/*
+    - ./aws-publish/ClientApp/dist/*
+    - ./aws-publish/wwwroot/*
+
