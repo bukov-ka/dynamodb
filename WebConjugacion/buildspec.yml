@@ -7,7 +7,6 @@ phases:
       - dotnet build WebConjugacion/WebConjugacion.sln
       - npm run build --prod --prefix WebConjugacion/ClientApp/
       - dotnet publish WebConjugacion/WebConjugacion.sln -o ./aws-publish
-      - chmod 777 -R ./aws-publish
 artifacts:
   files:
     - ./aws-publish/*
