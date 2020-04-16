@@ -1,0 +1,5 @@
+S3 Static website
+https://kborisov-aws-test-artifacts.s3.eu-west-3.amazonaws.com/aws-test/aws-publish/ClientApp/dist/index.html
+
+local dev environment
+http://192.168.0.85:8080/aws-test/aws-publish/ClientApp/dist/index.html

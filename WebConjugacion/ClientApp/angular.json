@@ -12,10 +12,12 @@
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
-          "options": {
+          "options": {       
+	    "baseHref" : "/aws-test/aws-publish/ClientApp/dist/",
+            "deployUrl": "/aws-test/aws-publish/ClientApp/dist/",
             "progress": false,
             "extractCss": true,
-            "outputPath": "../wwwroot",
+            "outputPath": "dist",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",

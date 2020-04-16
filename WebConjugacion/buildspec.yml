@@ -5,7 +5,7 @@ phases:
     commands:
       - dotnet restore WebConjugacion/WebConjugacion.sln
       - dotnet build WebConjugacion/WebConjugacion.sln
-      - npm run build --prefix WebConjugacion/ClientApp/ 
+      - npm run build --prod --prefix WebConjugacion/ClientApp/
       - dotnet publish WebConjugacion/WebConjugacion.sln -o ./aws-publish
 artifacts:
   files:
