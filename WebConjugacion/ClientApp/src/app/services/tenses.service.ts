@@ -28,5 +28,13 @@ export class TensesService {
           }
           )
         );
-    }
+  }
+
+  private selectedFilter: string[];
+  public get filterTenses(): string[] {
+    return this.selectedFilter;
+  }
+  public set filterTenses(v: string[])  {
+    this.selectedFilter = v;
+  }
 }

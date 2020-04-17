@@ -191,6 +191,7 @@ export class VerbsTreeComponent implements OnInit {
       this.checkRootNodeSelection(parent);
       parent = this.getParentNode(parent);
     }
+    this.updateTenseFilter();
   }
 
   /** Check root node checked state and change it accordingly */
@@ -227,8 +228,8 @@ export class VerbsTreeComponent implements OnInit {
     return null;
   }
 
-  check() {
+  updateTenseFilter() {
     var selectedTenses = this.checklistSelection.selected.filter(f => !!f.key).map(m => m.key);
-    console.log(selectedTenses);
+    this.tensesService.filterTenses = selectedTenses;
   }
 }
