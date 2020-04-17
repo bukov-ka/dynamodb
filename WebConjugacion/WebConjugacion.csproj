@@ -28,6 +28,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\src\app\services\checklist-database.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Update="Web.Release.config">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>

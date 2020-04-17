@@ -8,17 +8,18 @@ import { Tense } from '../shared/models/tense';
 import { Mood } from '../shared/models/mood';
 import { TensesService } from '../services/tenses.service';
 
+
 /**
  * Node for to-do item
  */
-export class TodoItemNode {
-  children: TodoItemNode[];
+export class TenseItemNode {
+  children: TenseItemNode[];
   item: string;
   key: string;
 }
 
 /** Flat to-do item node with expandable and level information */
-export class TodoItemFlatNode {
+export class TensItemFlatNode {
   item: string;
   key: string;
   level: number;
@@ -27,15 +28,15 @@ export class TodoItemFlatNode {
 
 /**
  * Checklist database, it can build a tree structured Json object.
- * Each node in Json object represents a to-do item or a category.
+ * Each node in Json object represents a tense tree item or a category.
  * If a node is a category, it has children items and new items can be added under the category.
  */
 @Injectable()
 export class ChecklistDatabase {
-  dataChange = new BehaviorSubject<TodoItemNode[]>([]);
+  dataChange = new BehaviorSubject<TenseItemNode[]>([]);
   moods: Mood[];
 
-  get data(): TodoItemNode[] { return this.dataChange.value; }
+  get data(): TenseItemNode[] { return this.dataChange.value; }
 
   constructor(private tensesService: TensesService) {
     this.initialize();
@@ -52,16 +53,16 @@ export class ChecklistDatabase {
 
   /**
    * Build the file structure tree. The `value` is the Json object, or a sub-tree of a Json object.
-   * The return value is the list of `TodoItemNode`.
+   * The return value is the list of `TenseItemNode`.
    */
-  buildFileTree(obj: Mood[], level: number): TodoItemNode[] {
-    return obj.reduce<TodoItemNode[]>((accumulator, currentIndex) => {
+  buildFileTree(obj: Mood[], level: number): TenseItemNode[] {
+    return obj.reduce<TenseItemNode[]>((accumulator, currentIndex) => {
       const value = currentIndex;
-      const node = new TodoItemNode();
+      const node = new TenseItemNode();
       node.item = value.name;
-      
+
       node.children = value.exact_tenses.map(m => {
-        var child = new TodoItemNode();
+        var child = new TenseItemNode();
         child.item = m.name;
         child.key = m.exact_name;
         return child;
@@ -73,6 +74,7 @@ export class ChecklistDatabase {
 }
 
 
+
 @Component({
   selector: 'app-verbs-tree',
   templateUrl: './verbs-tree.component.html',
@@ -82,36 +84,44 @@ export class ChecklistDatabase {
 export class VerbsTreeComponent implements OnInit {
 
   /** Map from flat node to nested node. This helps us finding the nested node to be modified */
-  flatNodeMap = new Map<TodoItemFlatNode, TodoItemNode>();
+  flatNodeMap = new Map<TensItemFlatNode, TenseItemNode>();
 
   /** Map from nested node to flattened node. This helps us to keep the same object for selection */
-  nestedNodeMap = new Map<TodoItemNode, TodoItemFlatNode>();
+  nestedNodeMap = new Map<TenseItemNode, TensItemFlatNode>();
 
   /** A selected parent node to be inserted */
-  selectedParent: TodoItemFlatNode | null = null;
+  selectedParent: TensItemFlatNode | null = null;
 
   /** The new item's name */
   newItemName = '';
 
-  treeControl: FlatTreeControl<TodoItemFlatNode>;
+  treeControl: FlatTreeControl<TensItemFlatNode>;
 
-  treeFlattener: MatTreeFlattener<TodoItemNode, TodoItemFlatNode>;
+  treeFlattener: MatTreeFlattener<TenseItemNode, TensItemFlatNode>;
 
-  dataSource: MatTreeFlatDataSource<TodoItemNode, TodoItemFlatNode>;
+  dataSource: MatTreeFlatDataSource<TenseItemNode, TensItemFlatNode>;
 
   /** The selection for checklist */
-  checklistSelection = new SelectionModel<TodoItemFlatNode>(true /* multiple */);
+  checklistSelection = new SelectionModel<TensItemFlatNode>(true /* multiple */);
 
   constructor(private _database: ChecklistDatabase,
     private tensesService: TensesService) {
     this.treeFlattener = new MatTreeFlattener(this.transformer, this.getLevel,
       this.isExpandable, this.getChildren);
-    this.treeControl = new FlatTreeControl<TodoItemFlatNode>(this.getLevel, this.isExpandable);
+    this.treeControl = new FlatTreeControl<TensItemFlatNode>(this.getLevel, this.isExpandable);
     this.dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
 
     _database.dataChange.subscribe(data => {
       this.dataSource.data = data;
       this.treeControl.expandAll();
+
+      var selection = this.tensesService.filterTenses;
+      if(!!selection)
+        this.treeControl.dataNodes.forEach(node => {
+          if (selection.indexOf(node.key) > -1) {
+            this.checklistSelection.select(node);
+          }
+      })
     });    
   }
 
@@ -120,24 +130,24 @@ export class VerbsTreeComponent implements OnInit {
   ngOnInit() {
   }
 
-  getLevel = (node: TodoItemFlatNode) => node.level;
+  getLevel = (node: TensItemFlatNode) => node.level;
 
-  isExpandable = (node: TodoItemFlatNode) => node.expandable;
+  isExpandable = (node: TensItemFlatNode) => node.expandable;
 
-  getChildren = (node: TodoItemNode): TodoItemNode[] => node.children;
+  getChildren = (node: TenseItemNode): TenseItemNode[] => node.children;
 
-  hasChild = (_: number, _nodeData: TodoItemFlatNode) => _nodeData.expandable;
+  hasChild = (_: number, _nodeData: TensItemFlatNode) => _nodeData.expandable;
 
-  hasNoContent = (_: number, _nodeData: TodoItemFlatNode) => _nodeData.item === '';
+  hasNoContent = (_: number, _nodeData: TensItemFlatNode) => _nodeData.item === '';
 
   /**
    * Transformer to convert nested node to flat node. Record the nodes in maps for later use.
    */
-  transformer = (node: TodoItemNode, level: number) => {
+  transformer = (node: TenseItemNode, level: number) => {
     const existingNode = this.nestedNodeMap.get(node);
     const flatNode = existingNode && existingNode.item === node.item
       ? existingNode
-      : new TodoItemFlatNode();
+      : new TensItemFlatNode();
     flatNode.item = node.item;
     flatNode.key = node.key;
     flatNode.level = level;
@@ -148,7 +158,7 @@ export class VerbsTreeComponent implements OnInit {
   }
 
   /** Whether all the descendants of the node are selected. */
-  descendantsAllSelected(node: TodoItemFlatNode): boolean {
+  descendantsAllSelected(node: TensItemFlatNode): boolean {
     const descendants = this.treeControl.getDescendants(node);
     const descAllSelected = descendants.every(child =>
       this.checklistSelection.isSelected(child)
@@ -157,14 +167,14 @@ export class VerbsTreeComponent implements OnInit {
   }
 
   /** Whether part of the descendants are selected */
-  descendantsPartiallySelected(node: TodoItemFlatNode): boolean {
+  descendantsPartiallySelected(node: TensItemFlatNode): boolean {
     const descendants = this.treeControl.getDescendants(node);
     const result = descendants.some(child => this.checklistSelection.isSelected(child));
     return result && !this.descendantsAllSelected(node);
   }
 
-  /** Toggle the to-do item selection. Select/deselect all the descendants node */
-  todoItemSelectionToggle(node: TodoItemFlatNode): void {
+  /** Toggle the item selection. Select/deselect all the descendants node */
+  tenseItemSelectionToggle(node: TensItemFlatNode): void {
     this.checklistSelection.toggle(node);
     const descendants = this.treeControl.getDescendants(node);
     this.checklistSelection.isSelected(node)
@@ -178,15 +188,15 @@ export class VerbsTreeComponent implements OnInit {
     this.checkAllParentsSelection(node);
   }
 
-  /** Toggle a leaf to-do item selection. Check all the parents to see if they changed */
-  todoLeafItemSelectionToggle(node: TodoItemFlatNode): void {
+  /** Toggle a leaf item selection. Check all the parents to see if they changed */
+  tenseLeafItemSelectionToggle(node: TensItemFlatNode): void {
     this.checklistSelection.toggle(node);
     this.checkAllParentsSelection(node);
   }
 
   /* Checks all the parents when a leaf node is selected/unselected */
-  checkAllParentsSelection(node: TodoItemFlatNode): void {
-    let parent: TodoItemFlatNode | null = this.getParentNode(node);
+  checkAllParentsSelection(node: TensItemFlatNode): void {
+    let parent: TensItemFlatNode | null = this.getParentNode(node);
     while (parent) {
       this.checkRootNodeSelection(parent);
       parent = this.getParentNode(parent);
@@ -195,7 +205,7 @@ export class VerbsTreeComponent implements OnInit {
   }
 
   /** Check root node checked state and change it accordingly */
-  checkRootNodeSelection(node: TodoItemFlatNode): void {
+  checkRootNodeSelection(node: TensItemFlatNode): void {
     const nodeSelected = this.checklistSelection.isSelected(node);
     const descendants = this.treeControl.getDescendants(node);
     const descAllSelected = descendants.every(child =>
@@ -209,7 +219,7 @@ export class VerbsTreeComponent implements OnInit {
   }
 
   /* Get the parent node of a node */
-  getParentNode(node: TodoItemFlatNode): TodoItemFlatNode | null {
+  getParentNode(node: TensItemFlatNode): TensItemFlatNode | null {
     const currentLevel = this.getLevel(node);
 
     if (currentLevel < 1) {
