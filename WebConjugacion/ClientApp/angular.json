@@ -12,9 +12,7 @@
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
-          "options": {       
-	    "baseHref" : "/aws-test/aws-publish/ClientApp/dist/",
-            "deployUrl": "/aws-test/aws-publish/ClientApp/dist/",
+          "options": {       	          
             "progress": false,
             "extractCss": true,
             "outputPath": "dist",
@@ -50,7 +48,7 @@
               "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
-              "buildOptimizer": true
+              "buildOptimizer": true,
             }
           }
         },
