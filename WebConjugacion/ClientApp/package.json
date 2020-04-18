@@ -5,6 +5,8 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build:Debug": "ng build --dev --base-href /",
+    "build:Release": "ng build --prod --base-href='/aws-test/aws-publish/ClientApp/dist/' --deploy-url='/aws-test/aws-publish/ClientApp/dist/'",
     "build:ssr": "ng run WebConjugacion:server:dev",
     "test": "ng test",
     "lint": "ng lint",
