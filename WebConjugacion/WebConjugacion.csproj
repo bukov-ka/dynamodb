@@ -32,10 +32,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="Web.Release.config">
+    <Content Update="web.Release.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Update="Web.Debug.config">
+    <Content Update="web.Debug.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Update="Web.config">

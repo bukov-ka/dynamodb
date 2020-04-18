@@ -1,3 +1,5 @@
+Public access -> Everyone: List objects -- For debug only to get normal 404 instead 403
+
 {
     "Id": "StaticWebsiteReadAllowed",
     "Version": "2012-10-17",

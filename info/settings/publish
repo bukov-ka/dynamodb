@@ -1,0 +1,6 @@
+more logs
+dotnet publish src\MyProject -o ..\..\publish /v:n
+
+the properties of the web.config "Copy to Output Directory" to "Always"
+
+Otherwise no copy on linux
