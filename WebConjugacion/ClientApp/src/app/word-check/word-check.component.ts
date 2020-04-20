@@ -10,21 +10,24 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class WordCheckComponent implements OnInit {
 
-  public current: Word;
+  public get current(): Word {
+    return this.verbs[this.currentIndex];
+  }
+  currentIndex: number;
   public variant: string;
-  verbs:Word[]
-  
+  verbs: Word[]
 
   constructor(private verbsService: VerbsService,
     private snackBar: MatSnackBar
   ) {
-    var verbs = this.verbsService.getVerbs();
-    verbs.subscribe(s => {
+    this.refreshVerbsList();
+  }
+
+  refreshVerbsList() {
+    var verbsObs = this.verbsService.getVerbs();
+    verbsObs.subscribe(s => {
       this.verbs = s;
-      this.current = s.find((w, i) => {
-        return w.is_irregular
-          && w.start_idx > 0
-      });
+      this.currentIndex = 0;
     });
   }
 
@@ -35,16 +38,22 @@ export class WordCheckComponent implements OnInit {
     var v = this.variant.trim().toLowerCase();
     var c = this.current.word.trim().toLowerCase();
     if (v == c) {
+      this.current["correct"] = true;
       this.snackBar.open("That's correct!", "Close", {
         duration: 1000,
       });
     }
     else {
+      this.current["correct"] = false;
       this.snackBar.open("No it's wrong! Correct answer: '" + c +"'.", "Close", {
         duration: 3000,
       });
     }
-    this.current = this.verbs[201];
+    if (this.currentIndex < this.verbs.length - 1) {
+      this.currentIndex++;
+    }
+    else {
+      this.refreshVerbsList();
+    }
   }
-
 }
