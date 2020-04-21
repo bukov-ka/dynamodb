@@ -39,6 +39,7 @@ export class WordCheckComponent implements OnInit {
     let c = this.current.word.trim().toLowerCase();
     let correctAnswers = c.split(",");
     let correct = correctAnswers.indexOf(v) > -1;
+    this.variant = ""; // Clear the input
     if (correct) {
       this.current["correct"] = true;
       this.snackBar.open("That's correct!", "Close", {
