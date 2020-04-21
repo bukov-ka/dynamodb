@@ -9,12 +9,17 @@
   <form novalidate>
     <div>
       <mat-form-field>
-        <input type="text" matInput placeholder="Verb" [(ngModel)]="variant" [ngModelOptions]="{standalone: true}" />
+        <input type="text" matInput placeholder="Verb"
+               #varianInput
+               [(ngModel)]="variant" [ngModelOptions]="{standalone: true}" />
       </mat-form-field>
-      <button (click)="checkWord()" mat-flat-button color="primary">CHECK</button>
+      <button (click)="checkWord()" mat-flat-button color="primary"
+              [disabled]="showRightAnswer"              
+              >CHECK</button>
     </div>
   </form>
-  <p>
+  <p *ngIf="showRightAnswer">
+    Right answer: 
     <span>{{current.first_part}}</span>
     <span class="irregular">{{current.irregular_part}}</span>
     <span>{{current.last_part}}</span>

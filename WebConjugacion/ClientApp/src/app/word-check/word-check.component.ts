@@ -1,4 +1,4 @@
-import { Component, OnInit  } from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectorRef, ElementRef } from '@angular/core';
 import { VerbsService } from '../services/verbs.service';
 import { Word } from '../shared/models/word';
 import { Mood } from '../shared/models/mood';
@@ -11,8 +11,10 @@ import { TensesService } from '../services/tenses.service';
   styleUrls: ['./word-check.component.css']
 })
 export class WordCheckComponent implements OnInit {
+  @ViewChild('varianInput', { static: false }) variantInput: ElementRef;
 
   public get current(): Word {
+    if (!this.verbs) return undefined;
     return this.verbs[this.currentIndex];
   }
   public get currentTenseName(): string {
@@ -22,10 +24,12 @@ export class WordCheckComponent implements OnInit {
   public variant: string;
   verbs: Word[];
   tenses: object;
+  showRightAnswer: boolean = false;
 
   constructor(private verbsService: VerbsService,
     private tenseService: TensesService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private changeDetectorRef: ChangeDetectorRef
   ) {
     this.refreshVerbsList();
     tenseService.getTenses().subscribe(s => {
@@ -61,7 +65,7 @@ export class WordCheckComponent implements OnInit {
   }
 
   checkWord() {
-    let v = this.variant.trim().toLowerCase();
+    let v = (this.variant||"").trim().toLowerCase();
     let c = this.current.word.trim().toLowerCase();
     let correctAnswers = c.split(",");
     let correct = correctAnswers.indexOf(v) > -1;
@@ -74,8 +78,14 @@ export class WordCheckComponent implements OnInit {
     }
     else {
       this.current["correct"] = false;
-      this.snackBar.open("No it's wrong! Correct answer: '" + c +"'.", "Close", {
+      this.showRightAnswer = true;
+      let barRef = this.snackBar.open("No it's wrong! Correct answer: '" + c +"'.", "Close", {
         duration: 3000,
+      });
+      barRef.afterDismissed().subscribe(s => {
+        this.showRightAnswer = false;
+        this.changeDetectorRef.detectChanges();
+        (this.variantInput.nativeElement as HTMLInputElement).focus();
       });
     }
     if (this.currentIndex < this.verbs.length - 1) {

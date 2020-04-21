@@ -9,11 +9,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.WordCheckComponent = void 0;
 var core_1 = require("@angular/core");
 var WordCheckComponent = /** @class */ (function () {
-    function WordCheckComponent(verbsService, tenseService, snackBar) {
+    function WordCheckComponent(verbsService, tenseService, snackBar, changeDetectorRef) {
         var _this = this;
         this.verbsService = verbsService;
         this.tenseService = tenseService;
         this.snackBar = snackBar;
+        this.changeDetectorRef = changeDetectorRef;
+        this.showRightAnswer = false;
         this.refreshVerbsList();
         tenseService.getTenses().subscribe(function (s) {
             _this.tenses = s;
@@ -36,6 +38,8 @@ var WordCheckComponent = /** @class */ (function () {
     }
     Object.defineProperty(WordCheckComponent.prototype, "current", {
         get: function () {
+            if (!this.verbs)
+                return undefined;
             return this.verbs[this.currentIndex];
         },
         enumerable: false,
@@ -59,7 +63,8 @@ var WordCheckComponent = /** @class */ (function () {
     WordCheckComponent.prototype.ngOnInit = function () {
     };
     WordCheckComponent.prototype.checkWord = function () {
-        var v = this.variant.trim().toLowerCase();
+        var _this = this;
+        var v = (this.variant || "").trim().toLowerCase();
         var c = this.current.word.trim().toLowerCase();
         var correctAnswers = c.split(",");
         var correct = correctAnswers.indexOf(v) > -1;
@@ -72,8 +77,14 @@ var WordCheckComponent = /** @class */ (function () {
         }
         else {
             this.current["correct"] = false;
-            this.snackBar.open("No it's wrong! Correct answer: '" + c + "'.", "Close", {
+            this.showRightAnswer = true;
+            var barRef = this.snackBar.open("No it's wrong! Correct answer: '" + c + "'.", "Close", {
                 duration: 3000,
+            });
+            barRef.afterDismissed().subscribe(function (s) {
+                _this.showRightAnswer = false;
+                _this.changeDetectorRef.detectChanges();
+                _this.variantInput.nativeElement.focus();
             });
         }
         if (this.currentIndex < this.verbs.length - 1) {
@@ -83,6 +94,9 @@ var WordCheckComponent = /** @class */ (function () {
             this.refreshVerbsList();
         }
     };
+    __decorate([
+        core_1.ViewChild('varianInput', { static: false })
+    ], WordCheckComponent.prototype, "variantInput", void 0);
     WordCheckComponent = __decorate([
         core_1.Component({
             selector: 'app-word-check',
