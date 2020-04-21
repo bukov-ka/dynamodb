@@ -35,9 +35,11 @@ export class WordCheckComponent implements OnInit {
   }
 
   checkWord() {
-    var v = this.variant.trim().toLowerCase();
-    var c = this.current.word.trim().toLowerCase();
-    if (v == c) {
+    let v = this.variant.trim().toLowerCase();
+    let c = this.current.word.trim().toLowerCase();
+    let correctAnswers = c.split(",");
+    let correct = correctAnswers.indexOf(v) > -1;
+    if (correct) {
       this.current["correct"] = true;
       this.snackBar.open("That's correct!", "Close", {
         duration: 1000,
