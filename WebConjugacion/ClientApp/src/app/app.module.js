@@ -32,9 +32,6 @@ var verbs_service_1 = require("./services/verbs.service");
 var tenses_service_1 = require("./services/tenses.service");
 var app_component_1 = require("./app.component");
 var nav_menu_component_1 = require("./nav-menu/nav-menu.component");
-var home_component_1 = require("./home/home.component");
-var counter_component_1 = require("./counter/counter.component");
-var fetch_data_component_1 = require("./fetch-data/fetch-data.component");
 var word_check_component_1 = require("./word-check/word-check.component");
 var verbs_tree_component_1 = require("./verbs-tree/verbs-tree.component");
 var AppModule = /** @class */ (function () {
@@ -45,9 +42,6 @@ var AppModule = /** @class */ (function () {
             declarations: [
                 app_component_1.AppComponent,
                 nav_menu_component_1.NavMenuComponent,
-                home_component_1.HomeComponent,
-                counter_component_1.CounterComponent,
-                fetch_data_component_1.FetchDataComponent,
                 word_check_component_1.WordCheckComponent,
                 verbs_tree_component_1.VerbsTreeComponent
             ],
@@ -57,9 +51,6 @@ var AppModule = /** @class */ (function () {
                 forms_1.FormsModule,
                 router_1.RouterModule.forRoot([
                     { path: '', redirectTo: '/word-check', pathMatch: 'full' },
-                    //{ path: '', component: HomeComponent, pathMatch: 'full' },
-                    { path: 'counter', component: counter_component_1.CounterComponent },
-                    { path: 'fetch-data', component: fetch_data_component_1.FetchDataComponent },
                     { path: 'word-check', component: word_check_component_1.WordCheckComponent },
                     { path: 'verbs-tree', component: verbs_tree_component_1.VerbsTreeComponent },
                 ]),
