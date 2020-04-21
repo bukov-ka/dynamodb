@@ -10,7 +10,7 @@
     <div>
       <mat-form-field>
         <input type="text" matInput placeholder="Verb"
-               #varianInput
+               autocomplete="off"
                [(ngModel)]="variant" [ngModelOptions]="{standalone: true}" />
       </mat-form-field>
       <button (click)="checkWord()" mat-flat-button color="primary"

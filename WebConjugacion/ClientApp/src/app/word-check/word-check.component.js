@@ -84,7 +84,6 @@ var WordCheckComponent = /** @class */ (function () {
             barRef.afterDismissed().subscribe(function (s) {
                 _this.showRightAnswer = false;
                 _this.changeDetectorRef.detectChanges();
-                _this.variantInput.nativeElement.focus();
             });
         }
         if (this.currentIndex < this.verbs.length - 1) {
@@ -94,9 +93,6 @@ var WordCheckComponent = /** @class */ (function () {
             this.refreshVerbsList();
         }
     };
-    __decorate([
-        core_1.ViewChild('varianInput', { static: false })
-    ], WordCheckComponent.prototype, "variantInput", void 0);
     WordCheckComponent = __decorate([
         core_1.Component({
             selector: 'app-word-check',

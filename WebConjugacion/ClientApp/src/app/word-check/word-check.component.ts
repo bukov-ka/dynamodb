@@ -11,8 +11,6 @@ import { TensesService } from '../services/tenses.service';
   styleUrls: ['./word-check.component.css']
 })
 export class WordCheckComponent implements OnInit {
-  @ViewChild('varianInput', { static: false }) variantInput: ElementRef;
-
   public get current(): Word {
     if (!this.verbs) return undefined;
     return this.verbs[this.currentIndex];
@@ -85,7 +83,6 @@ export class WordCheckComponent implements OnInit {
       barRef.afterDismissed().subscribe(s => {
         this.showRightAnswer = false;
         this.changeDetectorRef.detectChanges();
-        (this.variantInput.nativeElement as HTMLInputElement).focus();
       });
     }
     if (this.currentIndex < this.verbs.length - 1) {
