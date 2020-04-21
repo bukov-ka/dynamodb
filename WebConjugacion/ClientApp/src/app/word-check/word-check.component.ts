@@ -1,7 +1,9 @@
 import { Component, OnInit  } from '@angular/core';
 import { VerbsService } from '../services/verbs.service';
 import { Word } from '../shared/models/word';
+import { Mood } from '../shared/models/mood';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { TensesService } from '../services/tenses.service';
 
 @Component({
   selector: 'app-word-check',
@@ -13,14 +15,38 @@ export class WordCheckComponent implements OnInit {
   public get current(): Word {
     return this.verbs[this.currentIndex];
   }
+  public get currentTenseName(): string {
+    return this.tenses[this.current.tense_key];
+  }
   currentIndex: number;
   public variant: string;
-  verbs: Word[]
+  verbs: Word[];
+  tenses: object;
 
   constructor(private verbsService: VerbsService,
+    private tenseService: TensesService,
     private snackBar: MatSnackBar
   ) {
     this.refreshVerbsList();
+    tenseService.getTenses().subscribe(s => {
+      this.tenses = s;
+      //let t = s.flatMap(mood => mood.exact_tenses
+      //  .map(m => {
+      //    return {
+      //      name: mood.name + ' ' + m.name, key = m.exact_name}
+      //  }));
+      let flatTensesList = s.map(mood => mood.exact_tenses
+        .map(m => {
+          return {
+            name: mood.name + ' ' + m.name, key: m.exact_name
+          }
+        }))
+        .reduce(function (a, b) { return a.concat(b); });
+
+      flatTensesList.forEach(f => {
+        this.tenses[f.key] = f.name;
+      });
+    });    
   }
 
   refreshVerbsList() {

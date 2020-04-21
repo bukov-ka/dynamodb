@@ -15,19 +15,19 @@ export class TensesService {
   }
 
   getTenses(): Observable<Mood[]> {
-      const httpOptions = {
-        headers: new HttpHeaders({
-          'Content-Type': 'application/json'
-        })
-      };
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
 
-      return this.http.get<Mood[]>('filterTree.json', httpOptions)
-        .pipe(
-          catchError(err => {
-            return throwError(err);
-          }
-          )
-        );
+    return this.http.get<Mood[]>('filterTree.json', httpOptions)
+      .pipe(
+        catchError(err => {
+          return throwError(err);
+        }
+        )
+      );
   }
 
   private selectedFilter: string[];

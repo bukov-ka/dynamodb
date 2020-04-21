@@ -1,7 +1,10 @@
 <div *ngIf="current" class="wordCheckForm">
   <div>
+    {{this.currentTenseName}}
+  </div>
+  <div>
+    <span>{{current.pronoun}} </span>
     <span>({{current.infinitive}}) </span>
-    <span>{{current.pronoun}}</span>
   </div>
   <form novalidate>
     <div>
