@@ -56,7 +56,8 @@ var AppModule = /** @class */ (function () {
                 http_1.HttpClientModule,
                 forms_1.FormsModule,
                 router_1.RouterModule.forRoot([
-                    { path: '', component: home_component_1.HomeComponent, pathMatch: 'full' },
+                    { path: '', redirectTo: '/word-check', pathMatch: 'full' },
+                    //{ path: '', component: HomeComponent, pathMatch: 'full' },
                     { path: 'counter', component: counter_component_1.CounterComponent },
                     { path: 'fetch-data', component: fetch_data_component_1.FetchDataComponent },
                     { path: 'word-check', component: word_check_component_1.WordCheckComponent },

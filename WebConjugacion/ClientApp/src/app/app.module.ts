@@ -49,7 +49,8 @@ import { VerbsTreeComponent } from './verbs-tree/verbs-tree.component';
     HttpClientModule,
     FormsModule,
     RouterModule.forRoot([
-      { path: '', component: HomeComponent, pathMatch: 'full' },
+      { path: '', redirectTo : '/word-check', pathMatch: 'full' },
+      //{ path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
       { path: 'word-check', component: WordCheckComponent },
