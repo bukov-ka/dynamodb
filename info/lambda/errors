@@ -1,0 +1,11 @@
+  "errorType": "LambdaException",
+  "errorMessage": "Could not find the required 'LambdaConjugacion.deps.json'.  This file should be present at the root of the deployment package."
+
+
+
+{
+  "errorType": "LambdaException",
+  "errorMessage": "Unable to load type 'GetRandomVerbsFunction' from assembly 'bootstrap'."
+}
+Namespace is needed
+MyTest::MyTest.LambdaFunction::Handler
