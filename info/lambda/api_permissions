@@ -1,0 +1,9 @@
+https://serverless-stack.com/chapters/api-gateway-and-lambda-logs.html
+
+Policy:AmazonAPIGatewayPushToCloudWatchLogs
+
+arn:aws:iam::908478757030:role/APIGatewayCloudWatchLogs
+arn:aws:logs:us-east-1:123456789012:log-group:example
+arn:aws:logs:eu-west-3:908478757030:log-group:APILogs
+
+REST API arn:aws:lambda:eu-west-3:908478757030:function:GetRandomVerbs

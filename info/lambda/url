@@ -1,0 +1,8 @@
+API Gateway to Lambda answer
+https://stackoverflow.com/questions/51857971/how-to-turn-an-aws-lambda-function-into-an-own-https-endpoint
+
+REST vs HTTP
+https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-vs-rest.html
+
+Query parameter
+https://www.youtube.com/watch?v=uqx9iVyvIxw&t=171s
