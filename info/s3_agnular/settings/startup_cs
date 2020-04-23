@@ -1,0 +1,11 @@
+// app.UseHttpsRedirection();
+
+Category: Microsoft.AspNetCore.HttpsPolicy.HttpsRedirectionMiddleware
+EventId: 3
+RequestId: 80000110-0006-fd00-b63f-84710c7967bb
+RequestPath: /AngularDeploy/ClientApp/dist/styles.0002ce8574fc43bb94ec.css
+SpanId: |7d117604-48ce2da9070b683f.
+TraceId: 7d117604-48ce2da9070b683f
+ParentId: 
+
+Failed to determine the https port for redirect.
