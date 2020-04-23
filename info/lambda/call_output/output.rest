@@ -1,0 +1,1 @@
+"Output is {\u0022INPUT\u0022:\u0022TTT\u0022} System.Text.Json.JsonElement"

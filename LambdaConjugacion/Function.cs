@@ -22,7 +22,7 @@ namespace LambdaConjugacion
         public string FunctionHandler(object input, ILambdaContext context)
         {
             var output = input?.ToString().ToUpper();
-            return "Output is " + output;
+            return "Output is " + output +" " +input.GetType().ToString();
         }
     }
 }
