@@ -1,9 +1,8 @@
-import { Component, OnInit, ViewChild, ChangeDetectorRef, ElementRef } from '@angular/core';
-import { VerbsService } from '../services/verbs.service';
-import { Word } from '../shared/models/word';
-import { Mood } from '../shared/models/mood';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TensesService } from '../services/tenses.service';
+import { VerbsService } from '../services/verbs.service';
+import { Word } from '../shared/models/word';
 
 @Component({
   selector: 'app-word-check',
@@ -48,7 +47,7 @@ export class WordCheckComponent implements OnInit {
       flatTensesList.forEach(f => {
         this.tenses[f.key] = f.name;
       });
-    });    
+    });
   }
 
   refreshVerbsList() {
@@ -59,11 +58,11 @@ export class WordCheckComponent implements OnInit {
     });
   }
 
-  ngOnInit() {  
+  ngOnInit() {
   }
 
   checkWord() {
-    let v = (this.variant||"").trim().toLowerCase();
+    let v = (this.variant || "").trim().toLowerCase();
     let c = this.current.word.trim().toLowerCase();
     let correctAnswers = c.split(",");
     let correct = correctAnswers.indexOf(v) > -1;
@@ -73,18 +72,24 @@ export class WordCheckComponent implements OnInit {
       this.snackBar.open("That's correct!", "Close", {
         duration: 1000,
       });
+      this.nextWord();
     }
     else {
       this.current["correct"] = false;
       this.showRightAnswer = true;
-      let barRef = this.snackBar.open("No it's wrong! Correct answer: '" + c +"'.", "Close", {
+      let barRef = this.snackBar.open("No it's wrong! Correct answer: '" + c + "'.", "Close", {
         duration: 3000,
       });
       barRef.afterDismissed().subscribe(s => {
         this.showRightAnswer = false;
+        this.nextWord();
         this.changeDetectorRef.detectChanges();
       });
     }
+  }
+
+  // Show the next verb
+  private nextWord() {
     if (this.currentIndex < this.verbs.length - 1) {
       this.currentIndex++;
     }

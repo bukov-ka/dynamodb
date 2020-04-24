@@ -74,6 +74,7 @@ var WordCheckComponent = /** @class */ (function () {
             this.snackBar.open("That's correct!", "Close", {
                 duration: 1000,
             });
+            this.nextWord();
         }
         else {
             this.current["correct"] = false;
@@ -83,9 +84,13 @@ var WordCheckComponent = /** @class */ (function () {
             });
             barRef.afterDismissed().subscribe(function (s) {
                 _this.showRightAnswer = false;
+                _this.nextWord();
                 _this.changeDetectorRef.detectChanges();
             });
         }
+    };
+    // Show the next verb
+    WordCheckComponent.prototype.nextWord = function () {
         if (this.currentIndex < this.verbs.length - 1) {
             this.currentIndex++;
         }
