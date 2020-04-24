@@ -13,6 +13,7 @@ namespace LambdaConjugacion
         static Data()
         {
             var verbString = File.ReadAllText("verbsForLambda.json");
+            //var verbString = File.ReadAllText("allVerbsForm.json");
             Verbs = JsonConvert.DeserializeObject<List<WordViewModel>>(verbString);
 
         }
@@ -27,7 +28,10 @@ namespace LambdaConjugacion
                 // Shuffle
                 .OrderBy(o => rnd.NextDouble())
                 .Take(10)
+                //.Where(w=> w.tense_key.Contains("Indicative")|| w.tense_key=="gerund" || w.tense_key=="pastParticiple")
                 .ToList();
+            //var sssString = JsonConvert.SerializeObject(allWordsModels);
+            //File.WriteAllText("result.json", sssString, Encoding.UTF8);
             var words = allWordsModels;
             return words;
         }

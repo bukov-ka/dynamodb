@@ -20,7 +20,7 @@ namespace LambdaConjugacion
         /// <returns></returns>
         public object FunctionHandler(string filter, ILambdaContext context)
         {
-            var result = Data.TenRandomVerbs(filter.Split(","));
+            var result = Data.TenRandomVerbs(string.IsNullOrEmpty(filter)?null:filter.Split(","));
             return result;
         }
     }
