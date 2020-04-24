@@ -14,15 +14,14 @@ namespace LambdaConjugacion
     {
         
         /// <summary>
-        /// A simple function that takes a string and does a ToUpper
+        /// Return an object.
         /// </summary>
-        /// <param name="input"></param>
         /// <param name="context"></param>
         /// <returns></returns>
-        public string FunctionHandler(object input, ILambdaContext context)
+        public object FunctionHandler(ILambdaContext context)
         {
-            var output = input?.ToString().ToUpper();
-            return "Output is " + output +" " +input.GetType().ToString();
+            var result = Data.TenRandomVerbs(null);
+            return result;
         }
     }
 }
