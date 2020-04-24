@@ -18,9 +18,9 @@ namespace LambdaConjugacion
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>
-        public object FunctionHandler(ILambdaContext context)
+        public object FunctionHandler(string filter, ILambdaContext context)
         {
-            var result = Data.TenRandomVerbs(null);
+            var result = Data.TenRandomVerbs(filter.Split(","));
             return result;
         }
     }

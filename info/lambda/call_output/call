@@ -1,8 +1,7 @@
 HTTP API
-https://pt1vedqzte.execute-api.eu-west-3.amazonaws.com/GetRandomVerbs
-https://pukp29kk98.execute-api.eu-west-3.amazonaws.com/GetRandomVerbs?input=test
+https://pt1vedqzte.execute-api.eu-west-3.amazonaws.com/GetRandomVerbs?input=test
 
 
 REST API
 https://hi6s52i4xa.execute-api.eu-west-3.amazonaws.com/test
-https://hi6s52i4xa.execute-api.eu-west-3.amazonaws.com/test/?input=ttt
+https://hi6s52i4xa.execute-api.eu-west-3.amazonaws.com/test/?input=gerund
