@@ -1,0 +1,16 @@
+LayersRuntime, customApplication auto scaling
+Aws CodePipelineAws Serverless Application Model, CLI, running containers
+P37 permissions for xrayP43 view policies
+Permission boundary wtf?
+
+Vpc guide, nat
+How can i create a layer?
+Jasmine
+
+ToDo
+Check versions
+Try to remove vpc
+P62 show environment variables
+P172 custom error code
+Choosing between Http apis and rest apis in the api gateway developer guide
+P186 aws serverless application developer guide

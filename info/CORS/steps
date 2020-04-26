@@ -1,0 +1,3 @@
+Enable CORS
+Enable API Logging to Cloudwatch (provide a role for logging)
+

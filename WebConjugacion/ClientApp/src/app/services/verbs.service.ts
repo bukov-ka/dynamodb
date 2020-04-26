@@ -17,10 +17,16 @@ export class VerbsService {
   getVerbs(): Observable<Word[]> {
     const httpOptions = {
       headers: new HttpHeaders({
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': 'https://localhost:44350',
+        'Accept': 'application/json'
       })
     };
-    var fTenses = this.tensesService.filterTenses;
+    // REST API
+    return this.http.get<Word[]>('https://hi6s52i4xa.execute-api.eu-west-3.amazonaws.com/test/?input=gerund,pastParticiple', httpOptions);
+    //HTTP API
+    //return this.http.get<Word[]>('https://2y0wbgdgij.execute-api.eu-west-3.amazonaws.com/GetTenVerbs?input=gerund', httpOptions);
+    /*var fTenses = this.tensesService.filterTenses;
     return this.http.get<Word[]>('allVerbsForm.json', httpOptions)      
       .pipe(
         catchError(err => {
@@ -40,7 +46,6 @@ export class VerbsService {
         .sort(() => Math.random()-.5)
         .slice(0,10); 
       }))      
-      ;
+      ;*/
   }
-
 }
