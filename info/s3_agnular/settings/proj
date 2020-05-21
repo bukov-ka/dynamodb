@@ -1,8 +1,0 @@
-https://stackoverflow.com/questions/45970744/configure-base-url-depending-on-environment
-<Target Name="NgBuildAndAddToPublishOutput" AfterTargets="ComputeFilesToPublish">
-    <Exec Command="npm run | findstr &quot;build:$(Configuration)&quot;" ConsoleToMSBuild="true" IgnoreExitCode="true" EchoOff="true" WorkingDirectory="$(MSBuildProjectDirectory)">
-      <Output TaskParameter="ConsoleOutput" PropertyName="NpmScriptName" />
-    </Exec>
-    <Exec Condition=" '$(NpmScriptName)'=='build:$(Configuration)' " Command="npm run $(NpmScriptName)" />
-    <Exec Condition=" '$(NpmScriptName)'!='build:$(Configuration)' " Command="npm run build" />
-  </Target>

@@ -1,9 +1,0 @@
-Project type: AWS Lambda with tests C#
-
-Template: Custom Runtime Function
-
-  <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
-    <UseAppHost>true</UseAppHost>
-    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
-  </PropertyGroup>

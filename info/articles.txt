@@ -1,4 +1,0 @@
-Serverless 1 -> Angular with S3
-Serverless 2 -> Backend for SPA with Lambda
-Lambda speed for saving money. Rest cache, buld everything in memory. File rendered to C#, grouped by tenses, strings to avoid serialization
-Cognito auth

@@ -1,5 +1,0 @@
-aws lambda add-permission --function-name arn:aws:lambda:eu-west-3:908478757030:function:GetRandomVerbs --source-arn arn:aws:execute-api:eu-west-3:908478757030:2y0wbgdgij/* --principal apigateway.amazonaws.com --statement-id newAPIPermission --action lambda:InvokeFunction
-
-{
-    "Statement": "{\"Sid\":\"newAPIPermission\",\"Effect\":\"Allow\",\"Principal\":{\"Service\":\"apigateway.amazonaws.com\"},\"Action\":\"lambda:InvokeFunction\",\"Resource\":\"arn:aws:lambda:eu-west-3:908478757030:function:GetRandomVerbs\",\"Condition\":{\"ArnLike\":{\"AWS:SourceArn\":\"arn:aws:execute-api:eu-west-3:908478757030:2y0wbgdgij/*\"}}}"
-}

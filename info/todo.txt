@@ -1,4 +1,0 @@
-Serialization naming conventions for Lambda. Snake names?
-
-Change deployment to skip dlls, etc.
-
