@@ -29,36 +29,44 @@ namespace DynamicDBConsole
         static async System.Threading.Tasks.Task Main(string[] args)
         {
             var program = new Program();
-           // // Create the table
-           // await program.CreateTmpTableAsync();
+            bool initialAction = false;
+            if (initialAction)
+            {
+                // Create the table
+                await program.CreateTmpTableAsync();
 
-           //// Fill the table with data
-           //var serializerSettings = new JsonSerializerSettings
-           //{
-           //    ContractResolver = new DefaultContractResolver
-           //    {
-           //        NamingStrategy = new SnakeCaseNamingStrategy()
-           //    }
-           //};
-           // var verbsString = File.ReadAllText("allVerbsForm.json");
-           // var verbs = JsonConvert.DeserializeObject<List<JsonDTO>>(verbsString, serializerSettings);
-           // verbs = verbs.Where(s => s.TenseKey.Contains("indicative")
-           // || s.TenseKey == "gerund"
-           // || s.TenseKey == "pastParticiple").ToList();
+                // Fill the table with data
+                var serializerSettings = new JsonSerializerSettings
+                {
+                    ContractResolver = new DefaultContractResolver
+                    {
+                        NamingStrategy = new SnakeCaseNamingStrategy()
+                    }
+                };
+                var verbsString = File.ReadAllText("allVerbsForm.json");
+                var verbs = JsonConvert.DeserializeObject<List<JsonDTO>>(verbsString, serializerSettings);
+                verbs = verbs.Where(s => s.TenseKey.Contains("presentIndicative")
+                || s.TenseKey == "gerund"
+                || s.TenseKey == "pastParticiple").Take(10).ToList();
 
 
-           // foreach (var verb in verbs)
-           // {
-           //     _ = program.AddItem(verb);
-           // }
-             try
-             {
-                 _ = await program.GetRandomVerb();
-             }
-             catch (Exception ex)
-             {
-                 Console.WriteLine(ex.Message);
-             }
+                foreach (var verb in verbs)
+                {
+                    _ = program.AddItem(verb);
+                }
+            }
+            else
+            {
+                // Get random verb
+                try
+                {
+                    _ = await program.GetRandomVerb();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
             Console.WriteLine("Done");
             Console.ReadLine();
         }
@@ -66,6 +74,7 @@ namespace DynamicDBConsole
         {
             var randomRangeKey = Guid.NewGuid().ToString();
             var request = new QueryRequest();
+            request.IndexName = "RandomVerbIndex";
             request.TableName = tableName;
             request.Limit = 1;
             request.KeyConditionExpression = @"Division=:div AND Id > :id";
@@ -104,14 +113,43 @@ namespace DynamicDBConsole
                 {
                     new KeySchemaElement
                     {
-                        AttributeName = "Division",
+                        AttributeName = "Id",
                         KeyType = "HASH" // Partition Key
-                    },
+                    }/*,
                     new KeySchemaElement
                     {
                         AttributeName = "Id",
                         KeyType = "Range" // Sort Key
-                    }
+                    }*/
+                },
+                GlobalSecondaryIndexes = new List<GlobalSecondaryIndex>
+                {
+                     new GlobalSecondaryIndex()
+                     {
+                         IndexName = "RandomVerbIndex",
+                         KeySchema = new List<KeySchemaElement>
+                         {
+                             new KeySchemaElement
+                            {
+                                AttributeName = "Division",
+                                KeyType = "HASH" // Partition Key
+                            },
+                            new KeySchemaElement
+                            {
+                                AttributeName = "Id",
+                                KeyType = "Range" // Sort Key
+                            }
+                         },
+                         Projection = new Projection()
+                         {
+                             ProjectionType = ProjectionType.ALL
+                         },
+                         ProvisionedThroughput = new ProvisionedThroughput
+                         {
+                            ReadCapacityUnits = 1,
+                            WriteCapacityUnits = 1
+                         }
+                     }
                 },
                 ProvisionedThroughput = new ProvisionedThroughput
                 {
