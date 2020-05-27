@@ -149,7 +149,33 @@ namespace DynamicDBConsole
                             ReadCapacityUnits = 1,
                             WriteCapacityUnits = 1
                          }
-                     }
+                     },
+                     //new GlobalSecondaryIndex()
+                     //{
+                     //    IndexName = "RegAnsweredIndex",
+                     //    KeySchema = new List<KeySchemaElement>
+                     //    {
+                     //        new KeySchemaElement
+                     //       {
+                     //           AttributeName = "Division",
+                     //           KeyType = "HASH" // Partition Key
+                     //       },
+                     //       new KeySchemaElement
+                     //       {
+                     //           AttributeName = "Id",
+                     //           KeyType = "Range" // Sort Key
+                     //       }
+                     //    },
+                     //    Projection = new Projection()
+                     //    {
+                     //        ProjectionType = ProjectionType.ALL
+                     //    },
+                     //    ProvisionedThroughput = new ProvisionedThroughput
+                     //    {
+                     //       ReadCapacityUnits = 1,
+                     //       WriteCapacityUnits = 1
+                     //    }
+                     //}
                 },
                 ProvisionedThroughput = new ProvisionedThroughput
                 {
