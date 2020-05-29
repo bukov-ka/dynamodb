@@ -1,0 +1,10 @@
+<table>
+    <thead>
+        <th *ngFor="let column of getColumns()">{{column}}</th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let row of content">
+            <td *ngFor="let column of getColumns()">{{row[column]}}</td>            
+        </tr>
+    </tbody>
+</table>
