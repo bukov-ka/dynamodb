@@ -22,6 +22,27 @@
 [(ngModel)]="resultError"
 *ngIf="resultError"
 ></textarea>
+<div *ngIf="resultData" style="padding: 10px; ">
+    <div style="display: inline-block;">
+        <label>Primary Key: </label>
+        <select>
+        <option *ngFor="let column of columns" value={{column}}>
+            {{column}}
+        </option>
+        </select>        
+    </div>
+
+    <div style="display: inline-block; padding-left: 30px;">
+        <label>Sort Key: </label>
+        <select>
+        <option value="">None</option>
+        <option *ngFor="let column of columns" value={{column}}>
+            {{column}}
+        </option>
+        </select>        
+    </div>
+  </div>
+
 <app-table-view 
 *ngIf="resultData"
 [content]="resultData"></app-table-view>
