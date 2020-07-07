@@ -18,9 +18,15 @@
  <br/>
 <button (click)="showSQL()">Run SQL</button>
 <br/>
-<textarea
-[(ngModel)]="currentDataService.resultError"
+<font color="red"
 *ngIf="currentDataService.resultError"
-></textarea>
+>
+<br>
+{{currentDataService.resultError}}
+</font>
+
+<app-table-view style="margin: 5px;"
+    *ngIf="currentDataService.Data"
+    [content]="currentDataService.Data"></app-table-view>
 
 <app-gsi-solution></app-gsi-solution>

@@ -1,9 +1,9 @@
 <p>gsi-solution component</p>
-<div *ngIf="resultData" style="padding: 10px; ">
+<div *ngIf="currentDataService.Data" style="padding: 10px; ">
     <div style="display: inline-block;">
         <label>Primary Key: </label>
         <select>
-        <option *ngFor="let column of columns" value={{column}}>
+        <option *ngFor="let column of currentDataService.columns" value={{column}}>
             {{column}}
         </option>
         </select>        
@@ -13,11 +13,10 @@
         <label>Sort Key: </label>
         <select>
         <option value="">None</option>
-        <option *ngFor="let column of columns" value={{column}}>
+        <option *ngFor="let column of currentDataService.columns" value={{column}}>
             {{column}}
         </option>
         </select>        
     </div>
   </div>
-  <app-table-view 
-    [content]="currentDataService.Data"></app-table-view>
+  
