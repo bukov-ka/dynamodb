@@ -23,7 +23,9 @@ namespace DynamicDBConsole
             var awsAccessKeyId = Environment.GetEnvironmentVariable("AWS_ACCESS_KEY_ID");
             var awsSecretAccessKey = Environment.GetEnvironmentVariable("AWS_SECRET_ACCESS_KEY");
             var awsRegion = Environment.GetEnvironmentVariable("AWS_REGION");
-            _dynamoDbClient = new AmazonDynamoDBClient(awsAccessKeyId, awsSecretAccessKey, RegionEndpoint.GetBySystemName(awsRegion));
+            //_dynamoDbClient = new AmazonDynamoDBClient(awsAccessKeyId, awsSecretAccessKey, RegionEndpoint.GetBySystemName(awsRegion));
+            //_dynamoDbClient = new AmazonDynamoDBClient(_dynamoDbClient = new AmazonDynamoDBClient(awsAccessKeyId, awsSecretAccessKey, RegionEndpoint.GetBySystemName(awsRegion)););
+            _dynamoDbClient = new AmazonDynamoDBClient(RegionEndpoint.GetBySystemName(awsRegion));
         }
 
         static async System.Threading.Tasks.Task Main(string[] args)

@@ -1,4 +1,4 @@
-<p>live-sql works!</p>
+<p>live-sql component</p>
 <div style="text-align: left;">
     <pre style="color:black; border:solid 1px darkgray; padding:10px; text-align:left;display: inline-block;" >
     <span style="color:#794938;">CREATE</span><span style="color:#16191F;"> </span><span style="color:#794938;">TABLE</span><span style="color:#16191F;"> Music (
@@ -19,30 +19,8 @@
 <button (click)="showSQL()">Run SQL</button>
 <br/>
 <textarea
-[(ngModel)]="resultError"
-*ngIf="resultError"
+[(ngModel)]="currentDataService.resultError"
+*ngIf="currentDataService.resultError"
 ></textarea>
-<div *ngIf="resultData" style="padding: 10px; ">
-    <div style="display: inline-block;">
-        <label>Primary Key: </label>
-        <select>
-        <option *ngFor="let column of columns" value={{column}}>
-            {{column}}
-        </option>
-        </select>        
-    </div>
 
-    <div style="display: inline-block; padding-left: 30px;">
-        <label>Sort Key: </label>
-        <select>
-        <option value="">None</option>
-        <option *ngFor="let column of columns" value={{column}}>
-            {{column}}
-        </option>
-        </select>        
-    </div>
-  </div>
-
-<app-table-view 
-*ngIf="resultData"
-[content]="resultData"></app-table-view>
+<app-gsi-solution></app-gsi-solution>
