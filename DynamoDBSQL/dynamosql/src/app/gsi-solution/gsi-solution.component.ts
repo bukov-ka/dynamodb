@@ -22,6 +22,18 @@ export class GsiSolutionComponent implements OnInit {
   ];
 
   constructor(public currentDataService: CurrentDataService) { 
+    currentDataService.columnsUpdated.subscribe((m: Array<any>)=>{
+      if(m == null)
+      {
+        this.primaryKey="";
+        this.sortKey="";
+      }
+      else
+      {
+        this.primaryKey=currentDataService.columns[0];
+        this.sortKey="";
+      }
+    });
   }
 
   ngOnInit(): void {
@@ -40,8 +52,6 @@ export class GsiSolutionComponent implements OnInit {
     .then(function(data){
       console.log(data);
     }).catch(function(err){
-      //self.currentDataService.setErrorState(err);      
-      //console.log(self.currentDataService.resultError);
       console.log(err);
     });
   }

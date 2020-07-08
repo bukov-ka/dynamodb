@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -6,6 +7,8 @@ import { Injectable } from '@angular/core';
 export class CurrentDataService {
   
   constructor() { }
+  public columnsUpdated : Subject<Array<any>> = new Subject<Array<any>>();
+
   public columns: Array<string>;
   public resultError: string;
 
@@ -15,11 +18,16 @@ export class CurrentDataService {
   }
   public set Data(d: Array<any>){
     this._data = d;
-    if(d!=null)
+    if(d != null)
     {
       this.columns = this.getColumns(d);
       this.resultError = null;
     }
+    else
+    {
+      this.columns = null;
+    }
+    this.columnsUpdated.next(d);
   }
 
   getColumns(content:Array<any>):Array<string> {
