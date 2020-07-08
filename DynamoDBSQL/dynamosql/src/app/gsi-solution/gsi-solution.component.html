@@ -1,22 +1,48 @@
 <p>gsi-solution component</p>
-<div *ngIf="currentDataService.Data" style="padding: 10px; ">
+<div *ngIf="currentDataService.Data" style="padding: 10px;" >
     <div style="display: inline-block;">
         <label>Primary Key: </label>
-        <select>
-        <option *ngFor="let column of currentDataService.columns" value={{column}}>
+        <select  [(ngModel)]="primaryKey">
+        <option *ngFor="let column of currentDataService.columns" [value]="column">
             {{column}}
         </option>
         </select>        
     </div>
 
-    <div style="display: inline-block; padding-left: 30px;">
+    <div class="menuItem">
         <label>Sort Key: </label>
-        <select>
+        <select [(ngModel)]="sortKey">
         <option value="">None</option>
-        <option *ngFor="let column of currentDataService.columns" value={{column}}>
+        <option *ngFor="let column of currentDataService.columns" [value]="column">
             {{column}}
         </option>
         </select>        
+        <label>Operator: </label>
+        <select style="width:64px"  [(ngModel)]="operator">
+            <option value="">None</option>
+            <option value="=val">=</option>
+            <option value="&gt;val">&gt;</option>
+            <option value="&gt;=val">&gt;=</option>
+            <option value="&lt;val">&lt;</option>
+            <option value="&lt;=val">&lt;=</option>
+            <option value="LIKE 'val%' ">begins_with()</option>
+        </select>
+        <label>Descending: </label>
+        <input type="checkbox"
+            [(ngModel)]="descending"
+            style="vertical-align: middle; margin: 0px;">
+    </div>
+
+    <div class="menuItem">
+        <label>Limit: </label>
+        <select [(ngModel)]="limit">            
+            <option *ngFor="let l of limitOptions" [value]="l.val">{{l.title}}</option>
+        </select>        
+    </div>
+    <br>
+    <div>
+        <button 
+        (click)=runQuery()>Query</button>
     </div>
   </div>
   

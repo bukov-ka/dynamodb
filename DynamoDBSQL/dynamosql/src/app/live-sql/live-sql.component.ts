@@ -12,7 +12,7 @@ export class LiveSqlComponent implements OnInit {
 
   sqlText:string = "SELECT * FROM Music";  
 
-  constructor(private currentDataService: CurrentDataService) { 
+  constructor(public currentDataService: CurrentDataService) { 
     console.log(this.currentDataService);
   }
 
