@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CurrentDataService } from '../services/current-data.service';
 import * as alasql from 'alasql';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-gsi-solution',
@@ -20,9 +21,10 @@ export class GsiSolutionComponent implements OnInit {
     {"val":"3", "title":"3"},
     {"val":"10", "title":"10"},
   ];
+  updateSubscription: Subscription;
 
   constructor(public currentDataService: CurrentDataService) { 
-    currentDataService.columnsUpdated.subscribe((m: Array<any>)=>{
+    this.updateSubscription = currentDataService.columnsUpdated.subscribe((m: Array<any>)=>{
       if(m == null)
       {
         this.primaryKey="";
@@ -37,6 +39,10 @@ export class GsiSolutionComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+  
+  ngOnDestroy():any{
+    this.updateSubscription.unsubscribe();
   }
 
   runQuery(){
