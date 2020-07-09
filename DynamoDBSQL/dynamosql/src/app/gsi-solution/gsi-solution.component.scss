@@ -4,16 +4,9 @@
     padding-top: 4px;
 }
 
-label {
-    padding-left: 10px;
-}
-
-.keyInput {
-    width: 64px;
-}
-
-input[type=checkbox]
-{
-    vertical-align: middle; 
-    margin: 0px;   
+mat-form-field {
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-bottom: 0px;
+    padding-top: 0px;
 }

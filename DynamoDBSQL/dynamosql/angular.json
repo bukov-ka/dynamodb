@@ -28,9 +28,13 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.scss"
             ],
-            "scripts": ["node_modules/alasql/dist/alasql.min.js","node_modules/xlsx/dist/xlsx.core.min.js"]
+            "scripts": [
+              "node_modules/alasql/dist/alasql.min.js",
+              "node_modules/xlsx/dist/xlsx.core.min.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -92,6 +96,7 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.scss"
             ],
             "scripts": []
