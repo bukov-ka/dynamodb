@@ -23,7 +23,7 @@
         </mat-option>
         </mat-select>
     </mat-form-field>
-    <mat-form-field>
+    <mat-form-field *ngIf="sortKey">
         <mat-label>Operator: </mat-label>
         <mat-select style="width:64px"  [(ngModel)]="operator">
             <mat-option value="=val">=</mat-option>
@@ -34,11 +34,11 @@
             <mat-option value=' LIKE "val%" '>begins_with()</mat-option>
         </mat-select>
     </mat-form-field>
-    <mat-form-field>
+    <mat-form-field *ngIf="sortKey">
         <mat-label>Sort Key Value: </mat-label>
         <input matInput type="text" [(ngModel)]="sortKeyValue">
     </mat-form-field>  
-    <mat-checkbox matInput type="checkbox"
+    <mat-checkbox matInput type="checkbox"  *ngIf="sortKey"
             [(ngModel)]="descending"
             >Descending</mat-checkbox>
     <br>
