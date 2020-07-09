@@ -1,10 +1,9 @@
-<table>
-    <thead>
-        <th *ngFor="let column of getColumns()">{{column}}</th>
-    </thead>
-    <tbody>
-        <tr *ngFor="let row of content">
-            <td *ngFor="let column of getColumns()">{{row[column]}}</td>            
-        </tr>
-    </tbody>
-</table>
+<mat-table mat-table [dataSource]="content" class="mat-elevation-z8">
+    <ng-container *ngFor="let col of getColumns()" [matColumnDef]="col">
+        <mat-header-cell *matHeaderCellDef>{{col}}</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element[col]}}</mat-cell>
+      </ng-container>
+    <mat-header-row  *matHeaderRowDef="getColumns()"></mat-header-row >
+    <mat-row *matRowDef="let row; columns: getColumns();">        
+    </mat-row>
+</mat-table>
