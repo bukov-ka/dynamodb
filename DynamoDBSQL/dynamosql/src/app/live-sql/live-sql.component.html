@@ -1,4 +1,3 @@
-<p>live-sql component</p>
 <div style="text-align: left;">
     <pre style="color:black; border:solid 1px darkgray; padding:10px; text-align:left;display: inline-block;" >
     <span style="color:#794938;">CREATE</span><span style="color:#16191F;"> </span><span style="color:#794938;">TABLE</span><span style="color:#16191F;"> Music (
@@ -11,12 +10,15 @@
         Tags </span><span style="color:#0C1841;">TEXT</span><span style="color:#16191F;">,
         PRIMARY </span><span style="color:#794938;">KEY</span><span style="color:#16191F;">(Artist, SongTitle)
     );</span></pre></div>
-    
-<textarea
+
+<mat-form-field style="width: 75%; scroll-behavior: auto;">
+<textarea matInput 
 [(ngModel)]="sqlText"
  placeholder="Enter SQL query"></textarea>
+</mat-form-field>
  <br/>
-<button (click)="showSQL()">Run SQL</button>
+<button mat-flat-button mat-button color="primary"
+(click)="showSQL()">Run SQL</button>
 <br/>
 <font color="red"
 *ngIf="currentDataService.resultError"
