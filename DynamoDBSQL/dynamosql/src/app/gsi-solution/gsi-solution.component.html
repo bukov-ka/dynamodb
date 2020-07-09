@@ -19,18 +19,17 @@
         </select>        
         <label>Operator: </label>
         <select style="width:64px"  [(ngModel)]="operator">
-            <option value="">None</option>
             <option value="=val">=</option>
             <option value="&gt;val">&gt;</option>
             <option value="&gt;=val">&gt;=</option>
             <option value="&lt;val">&lt;</option>
             <option value="&lt;=val">&lt;=</option>
-            <option value="LIKE 'val%' ">begins_with()</option>
+            <option value=' LIKE "val%" '>begins_with()</option>
         </select>
         <label>Descending: </label>
         <input type="checkbox"
             [(ngModel)]="descending"
-            style="vertical-align: middle; margin: 0px;">
+            >
     </div>
 
     <div class="menuItem">
@@ -39,6 +38,25 @@
             <option *ngFor="let l of limitOptions" [value]="l.val">{{l.title}}</option>
         </select>        
     </div>
+    <br>
+    <table>
+        <tr>
+            <td>
+                <label>Primary Key Value: </label>
+            </td>
+            <td>
+                <input type="text" [(ngModel)]="primaryKeyValue" class="keyInput">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>Sort Key Value: </label>
+            </td>
+            <td>
+                <input type="text" [(ngModel)]="sortKeyValue" class="keyInput">
+            </td>
+        </tr>
+    </table>
     <br>
     <div>
         <button 

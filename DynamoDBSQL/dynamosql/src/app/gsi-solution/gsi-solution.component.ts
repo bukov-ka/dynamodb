@@ -12,8 +12,10 @@ export class GsiSolutionComponent implements OnInit {
 
   primaryKey: string;
   sortKey: string = "";
+  primaryKeyValue:string = "";
+  sortKeyValue:string = "";
   descending: boolean = false;
-  operator: string = "";
+  operator: string = "=val";
   limit: string = "";    
   limitOptions: {val:string, title:string}[]=[
     {"val":"", "title":"None"},
@@ -46,15 +48,30 @@ export class GsiSolutionComponent implements OnInit {
   }
 
   runQuery(){
-    console.log('----');    
-    console.log(this.primaryKey);
-    console.log(this.sortKey);
+    let self = this;    
+    let topExpression = this.limit?`top ${this.limit}`:"";
+    let descendingExpression = this.descending?'desc':'asc'    
+    let orderByExpression = this.sortKey?
+                            `order by ${this.sortKey} ${descendingExpression}, ${this.primaryKey}`
+                            :`order by ${this.primaryKey}`;    
+    let sortKeyQuoted = this.sortKeyValue;
+    if(this.currentDataService.Data.length>0 && !this.operator.includes('LIKE'))
+    {
+      sortKeyQuoted = typeof(this.currentDataService.Data[0][this.sortKey])=='string'
+                      ?`\"${this.sortKeyValue}\"`:this.sortKeyValue;
+    }
+    console.log(sortKeyQuoted);
+    let sortKeyExpression = `${this.sortKey} ${this.operator}`.replace(/val/gi, sortKeyQuoted);
     console.log(this.operator);
-    console.log(this.descending);
-    console.log(this.limit);
-    console.log('----');    
-    let self = this;
-    alasql.default.promise('select top 2 * from ? data', this.currentDataService.Data)    
+    console.log(sortKeyExpression);
+    let whereExpression = this.sortKey?
+    `where  ${this.primaryKey} = \"${this.primaryKeyValue}\" AND ${sortKeyExpression}`
+    :`where  ${this.primaryKey} = \"${this.primaryKeyValue}\"`;
+    let selectExpression = `select ${topExpression} * from ? data \
+    ${whereExpression} \
+    ${orderByExpression} `;
+    console.log(selectExpression);
+    alasql.default.promise(selectExpression, [this.currentDataService.Data])    
     .then(function(data){
       console.log(data);
     }).catch(function(err){
