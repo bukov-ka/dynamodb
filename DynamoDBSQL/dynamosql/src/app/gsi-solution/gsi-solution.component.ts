@@ -12,6 +12,7 @@ export class GsiSolutionComponent implements OnInit {
 
   primaryKey: string;
   sortKey: string = "";
+  resultKey: string = "";
   primaryKeyValue:string = "";
   sortKeyValue:string = "";
   descending: boolean = false;
