@@ -60,10 +60,18 @@
         </mat-select>        
     </mat-form-field>
     <br>  
+    <font color="red"
+    *ngIf="resultError"
+    >
+    {{resultError}}
+    </font>
+    <br>
     <div>
         <button mat-flat-button mat-button color="primary"
         [disabled]="f.invalid"
         (click)=runQuery()>Query</button>
     </div>
+    
+    
   </div>
 </form>
