@@ -1,77 +1,23 @@
-<form #f="ngForm">
 <div *ngIf="currentDataService.Data" style="padding: 10px;" >
-    <mat-form-field>
-        <mat-label>Primary Key</mat-label>
-        <mat-select  [(ngModel)]="primaryKey" required name="primaryKey">
-        <mat-option *ngFor="let column of currentDataService.columns" [value]="column">
-            {{column}}
-        </mat-option>
-        </mat-select>        
-    </mat-form-field>
-    
-    <mat-form-field>
-        <mat-label>Primary Key Value</mat-label>
-        <input matInput type="text" required
-        [(ngModel)]="primaryKeyValue"  name="primaryKeyValue">
-    </mat-form-field>
-    <br>
+<mat-form-field>
+    <mat-label>Primary Key</mat-label>
+    <mat-select  [(ngModel)]="primaryKey" required name="primaryKey">
+    <mat-option *ngFor="let column of currentDataService.columns" [value]="column">
+        {{column}}
+    </mat-option>
+    </mat-select>        
+</mat-form-field>
 
-    <mat-form-field>
-        <mat-label>Sort Key</mat-label>
-        <mat-select [(ngModel)]="sortKey" name="sortKey">
-        <mat-option value="">None</mat-option>
-        <mat-option *ngFor="let column of currentDataService.columns" [value]="column">
-            {{column}}
-        </mat-option>
-        </mat-select>
-    </mat-form-field>
-    <mat-form-field *ngIf="sortKey">
-        <mat-label>Operator</mat-label>
-        <mat-select style="width:64px"  [(ngModel)]="operator" name="operator">
-            <mat-option value="=val">=</mat-option>
-            <mat-option value="&gt;val">&gt;</mat-option>
-            <mat-option value="&gt;=val">&gt;=</mat-option>
-            <mat-option value="&lt;val">&lt;</mat-option>
-            <mat-option value="&lt;=val">&lt;=</mat-option>
-            <mat-option value=' LIKE "val%" '>begins_with()</mat-option>
-        </mat-select>
-    </mat-form-field>
-    <mat-form-field *ngIf="sortKey">
-        <mat-label>Sort Key Value</mat-label>
-        <input matInput type="text" [(ngModel)]="sortKeyValue" name="sortKeyValue">
-    </mat-form-field>  
-    <mat-checkbox matInput type="checkbox"  *ngIf="sortKey"
-            [(ngModel)]="descending"  name="descending"
-            >Descending</mat-checkbox>
-    <br>
-    <mat-form-field>
-        <mat-label>Limit</mat-label>
-        <mat-select [(ngModel)]="limit" name="limit">
-            <mat-option *ngFor="let l of limitOptions" [value]="l.val">{{l.title}}</mat-option>
-        </mat-select>        
-    </mat-form-field>
-    <br>
-    <mat-form-field>
-        <mat-label>Result Key</mat-label>
-        <mat-select  [(ngModel)]="resultKey" name="resultKey" required>
-        <mat-option *ngFor="let column of currentDataService.columns" [value]="column">
-            {{column}}
-        </mat-option>
-        </mat-select>        
-    </mat-form-field>
-    <br>  
-    <font color="red"
-    *ngIf="resultError"
-    >
-    {{resultError}}
-    </font>
-    <br>
-    <div>
-        <button mat-flat-button mat-button color="primary"
-        [disabled]="f.invalid"
-        (click)=runQuery()>Query</button>
-    </div>
-    
-    
-  </div>
-</form>
+<mat-form-field>
+    <mat-label>Sort Key</mat-label>
+    <mat-select [(ngModel)]="sortKey" name="sortKey">
+    <mat-option value="">None</mat-option>
+    <mat-option *ngFor="let column of currentDataService.columns" [value]="column">
+        {{column}}
+    </mat-option>
+    </mat-select>
+</mat-form-field>
+
+
+<app-query-run [primaryKey]="primaryKey" [sortKey]="sortKey"></app-query-run>
+</div>

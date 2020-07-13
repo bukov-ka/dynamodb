@@ -15,6 +15,7 @@ import { TableViewComponent } from './table-view/table-view.component';
 import { GsiSolutionComponent } from './gsi-solution/gsi-solution.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
+import { QueryRunComponent } from './query-run/query-run.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { NavMenuComponent } from './nav-menu/nav-menu.component';
     LiveSqlComponent,
     TableViewComponent,
     GsiSolutionComponent,
-    NavMenuComponent
+    NavMenuComponent,
+    QueryRunComponent
   ],
   imports: [
     BrowserModule,
