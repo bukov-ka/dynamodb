@@ -1,0 +1,14 @@
+{
+  "name": "Simple",
+  "tableMapping": [
+ {
+    "table": "Music",
+    "sheet": "table2"
+  }
+],
+  "gsis": [
+    "name": "Simple query GSI",
+    "description": "Query data without any complications",
+    "result": [2015]
+]
+}

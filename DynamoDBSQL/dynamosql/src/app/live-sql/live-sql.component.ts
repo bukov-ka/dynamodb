@@ -4,6 +4,7 @@ import * as alasql from 'alasql';
 import { ActivatedRoute } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
+import { TasksConfigService } from '../services/tasks-config.service';
 
 @Component({
   selector: 'app-live-sql',
@@ -17,8 +18,13 @@ export class LiveSqlComponent implements OnInit {
 
   private paramSubscription: Subscription;
   constructor(public currentDataService: CurrentDataService,
-    private route: ActivatedRoute) { 
+    private route: ActivatedRoute,
+    private taskConfigService: TasksConfigService,
+    ) { 
       this.paramSubscription = route.params.subscribe(params=>console.log(params['id']));
+      taskConfigService.getConfig("simple").subscribe(s=>{
+        console.log(s);
+      });
   }
 
   ngOnInit(): void {  
@@ -38,6 +44,16 @@ export class LiveSqlComponent implements OnInit {
       self.currentDataService.setErrorState(err);      
       console.log(self.currentDataService.resultError);
     });
+
+
+    /*alasql.default.promise('select * from xlsx("assets/csv/test_tables.xlsx",{sheetid:"table2"})')    
+    .then(function(data){
+      console.log('xlsx');
+      console.log(data);
+    }).catch(function(err){
+      console.log('xlsx err');
+      console.log(err);
+    });*/
   }
 
   
