@@ -34,18 +34,5 @@ export class GsiSolutionComponent implements OnInit {
   
   ngOnDestroy():any{
     this.updateSubscription.unsubscribe();
-  }
-
-  /*
-  checkNullPrimaryKey(){
-    for (let index = 0; index < this.currentDataService.Data.length; index++) {
-      const element = this.currentDataService.Data[index];
-      if(element[this.primaryKey] == undefined || element[this.primaryKey] == ''){
-        this.resultError='Primary Key cannot contain nulls.';        
-        throw new Error(this.resultError);
-      }
-    }
-  }
-  */
-  
+  }  
 }
