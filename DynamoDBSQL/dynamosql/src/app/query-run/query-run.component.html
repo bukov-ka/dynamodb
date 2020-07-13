@@ -1,3 +1,14 @@
+<hr>
+<mat-expansion-panel [expanded]="true" #panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <mat-icon>{{panel.expanded  ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}</mat-icon>
+        Use case 'Simple data querying'
+      </mat-panel-title>
+      <mat-panel-description>
+        Just query data using PrimaryKey without any complications
+      </mat-panel-description>
+    </mat-expansion-panel-header>  
 <form #f="ngForm">
 <mat-form-field>
     <mat-label>Primary Key Value</mat-label>
@@ -55,3 +66,4 @@
     (click)=runQuery()>Query</button>
 </div>
 </form>
+</mat-expansion-panel>
