@@ -1,12 +1,12 @@
 <hr>
-<mat-expansion-panel [expanded]="true" #panel>
+<mat-expansion-panel [expanded]="true" #panel class="mat-elevation-z8">
     <mat-expansion-panel-header>
       <mat-panel-title>
         <mat-icon>{{panel.expanded  ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}</mat-icon>
-        Use case 'Simple data querying'
+        {{runConfig.name}}
       </mat-panel-title>
       <mat-panel-description>
-        Just query data using PrimaryKey without any complications
+        {{runConfig.description}}
       </mat-panel-description>
     </mat-expansion-panel-header>  
 <form #f="ngForm">

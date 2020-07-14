@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import * as alasql from 'alasql';
 import { CurrentDataService } from '../services/current-data.service';
+import { RunConfig } from '../shared/run_config';
 
 @Component({
   selector: 'app-query-run',
@@ -11,6 +12,8 @@ export class QueryRunComponent implements OnInit {
 
   @Input() primaryKey: string;
   @Input() sortKey: string;
+  @Input()
+  public runConfig: RunConfig;
 
   resultError: string = null;  
   resultKey: string = "";

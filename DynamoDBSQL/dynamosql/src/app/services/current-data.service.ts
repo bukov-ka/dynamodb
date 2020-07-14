@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
+import { TaskConfig } from '../shared/models/task_config';
 
 @Injectable({
   providedIn: 'root'
@@ -28,6 +29,14 @@ export class CurrentDataService {
       this.columns = null;
     }
     this.columnsUpdated.next(d);
+  }
+
+  private _config: TaskConfig;
+  public get Config(): TaskConfig{
+    return this._config;
+  }
+  public set Config( c: TaskConfig){
+     this._config = c;
   }
 
   getColumns(content:Array<any>):Array<string> {

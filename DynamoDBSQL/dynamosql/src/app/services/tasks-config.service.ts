@@ -11,14 +11,14 @@ export class TasksConfigService {
 
   constructor(private http: HttpClient) { }
 
-  getConfig(name:string): Observable<TaskConfig[]> {
+  getConfig(name:string): Observable<TaskConfig> {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     };
 
-    return this.http.get<TaskConfig[]>('assets/simple.json', httpOptions)
+    return this.http.get<TaskConfig>('assets/simple.json', httpOptions)
       .pipe(
         catchError(err => {
           return throwError(err);

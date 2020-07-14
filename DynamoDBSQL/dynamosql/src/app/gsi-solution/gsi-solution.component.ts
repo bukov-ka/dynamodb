@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { CurrentDataService } from '../services/current-data.service';
 import * as alasql from 'alasql';
 import { Subscription } from 'rxjs';
@@ -9,7 +9,6 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./gsi-solution.component.scss']
 })
 export class GsiSolutionComponent implements OnInit {
-
   primaryKey: string;
   sortKey: string = "";
   updateSubscription: Subscription;
@@ -26,7 +25,7 @@ export class GsiSolutionComponent implements OnInit {
         this.primaryKey=currentDataService.columns[0];
         this.sortKey="";
       }
-    });
+    });    
   }
 
   ngOnInit(): void {

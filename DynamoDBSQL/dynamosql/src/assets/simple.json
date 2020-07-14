@@ -1,12 +1,13 @@
 {
   "name": "Simple",
+  "xlsxFile":"",
   "tableMapping": [
     {
       "table": "Music",
-      "sheet": "table2"
+      "sheet": "simple"
     }
   ],
-  "gsis": [
+  "runs": [
     {
       "name": "Simple query GSI",
       "description": "Query data without any complications",
@@ -14,5 +15,7 @@
         2015
       ]
     }
-  ]
+  ],
+  "initialJoinSQL": "SELECT * FROM MUSIC",
+  "solutionSQL": "SELECT * FROM MUSIC"
 }
