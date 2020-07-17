@@ -42,9 +42,16 @@ export class CurrentDataService {
   getColumns(content:Array<any>):Array<string> {
     let columns:Array<string>=[];
     if(!content) return columns;
-    Object.keys(content[0]).forEach(key=>{
-      columns.push(key);
+    content.forEach(row=>
+      {
+        Object.keys(row).forEach(key=>{
+          if(columns.indexOf(key)<0)
+          {
+            columns.push(key);
+          }
+        });
     });
+    console.log(columns);
     return columns;
   }
 

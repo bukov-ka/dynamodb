@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { CurrentDataService } from '../services/current-data.service';
 
 @Component({
   selector: 'app-table-view',
@@ -6,19 +7,14 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./table-view.component.scss']
 })
 export class TableViewComponent implements OnInit {
-  constructor() { }
+  constructor(private currentDataService: CurrentDataService) { }
   @Input()
   public content: Array<any>;
   ngOnInit(): void {
   }
 
-  getColumns():Array<string> {
-    let columns:Array<string>=[];
-    if(!this.content) return columns;
-    Object.keys(this.content[0]).forEach(key=>{
-      columns.push(key);
-    });
-    return columns;
+  getColumns():Array<string> {    
+    return this.currentDataService.getColumns(this.content);
   }
 
 }
