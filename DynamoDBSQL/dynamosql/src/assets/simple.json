@@ -1,6 +1,7 @@
 {
   "name": "Simple",
   "xlsxFile":"",
+  "schemaPic":"music.png",
   "tableMapping": [
     {
       "table": "Music",

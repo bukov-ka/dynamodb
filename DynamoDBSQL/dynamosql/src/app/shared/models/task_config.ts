@@ -5,6 +5,7 @@ import { RunConfig as RunConfig } from '../run_config';
 export class TaskConfig {
   name: string;
   tableMapping: MappingItem[];
+  schemaPic: string;
   runs: RunConfig[];
   initialJoinSQL: string;
   solutionSQL: string;
