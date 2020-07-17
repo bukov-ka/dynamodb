@@ -51,7 +51,6 @@ export class CurrentDataService {
           }
         });
     });
-    console.log(columns);
     return columns;
   }
 
