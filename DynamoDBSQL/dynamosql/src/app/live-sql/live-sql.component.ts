@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { CurrentDataService } from '../services/current-data.service';
 import * as alasql from 'alasql';
 import { ActivatedRoute } from '@angular/router';
-import { switchMap } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { TasksConfigService } from '../services/tasks-config.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -48,20 +47,31 @@ export class LiveSqlComponent implements OnInit {
   showSQL():void{
     let sqlWithXlsxNames = this.sqlText;
     let config = this.currentDataService.Config;
-    config.tableMapping.forEach((s,i)=>{
+    config.tableMapping.forEach((s,i)=>{ // Replace table names to the XLSX paths
       let regEx = new RegExp(`${s.table}`, "ig");
       sqlWithXlsxNames = sqlWithXlsxNames.replace(regEx, `XLSX(\"assets/csv/${s.sheet}\",  {headers:true})`);
       }
-    )
-    console.log("Real SQL query: ", sqlWithXlsxNames);
+    )    
+    let unionReplaceRegEx = new RegExp(`(union all|union)`, "ig");        
+    var splittedSQL = sqlWithXlsxNames.replace(unionReplaceRegEx, '@').split('@'); // split the query by any 'union' clause
+    
     let self = this;
-    alasql.default.promise(sqlWithXlsxNames)    
-    .then(function(data){
-      self.currentDataService.Data=data;
-    }).catch(function(err){
-      self.currentDataService.setErrorState(err);      
-      console.log(self.currentDataService.resultError);
+    var promises = [];
+    var res = [];
+    splittedSQL.forEach(s=>{
+      promises.push(
+        alasql.default.promise(s)
+        .then(function(data){          
+          data.forEach((row)=>res.push(row)); // Push each row to the resulting table
+          self.currentDataService.Data=data;
+        }).catch(function(err){
+          self.currentDataService.setErrorState(err);      
+          console.log(self.currentDataService.resultError);
+        })
+      );
     });
+    Promise.all(promises).then(() =>     
+    self.currentDataService.Data=res);
   }
 
   showSolutionSQL(){
