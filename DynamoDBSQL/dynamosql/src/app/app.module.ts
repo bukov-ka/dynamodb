@@ -10,6 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
 import { MatExpansionModule } from '@angular/material/expansion'
 import { MatIconModule } from '@angular/material/icon';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -19,6 +20,7 @@ import { GsiSolutionComponent } from './gsi-solution/gsi-solution.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { QueryRunComponent } from './query-run/query-run.component';
+import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 
 
 
@@ -29,7 +31,8 @@ import { QueryRunComponent } from './query-run/query-run.component';
     TableViewComponent,
     GsiSolutionComponent,
     NavMenuComponent,
-    QueryRunComponent
+    QueryRunComponent,
+    ConfirmationDialogComponent
   ],
   imports: [
     HttpClientModule,
@@ -45,6 +48,7 @@ import { QueryRunComponent } from './query-run/query-run.component';
     MatTableModule,
     MatExpansionModule,
     MatIconModule,
+    MatDialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

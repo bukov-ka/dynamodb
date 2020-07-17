@@ -5,6 +5,9 @@ import { ActivatedRoute } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { TasksConfigService } from '../services/tasks-config.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
+
 
 @Component({
   selector: 'app-live-sql',
@@ -20,6 +23,7 @@ export class LiveSqlComponent implements OnInit {
   constructor(public currentDataService: CurrentDataService,
     private route: ActivatedRoute,
     private taskConfigService: TasksConfigService,
+    public dialog: MatDialog,
     ) { 
       this.paramSubscription = route.params.subscribe(params=>console.log(params['id']));
       taskConfigService.getConfig("simple").subscribe(s=>{
@@ -57,6 +61,18 @@ export class LiveSqlComponent implements OnInit {
     }).catch(function(err){
       self.currentDataService.setErrorState(err);      
       console.log(self.currentDataService.resultError);
+    });
+  }
+
+  showSolutionSQL(){
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '350px',
+      data: "You will get complete SQL and will lost an opportunity to solve it all by yourself. Ok?"
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if(result) {
+        this.sqlText = this.currentDataService.Config.solutionSQL;
+      }
     });
   }
 

@@ -1,5 +1,5 @@
-<div>
-<img [src]="'assets/' + currentDataService.Config.schemaPic">    
+<div *ngIf="currentDataService.Config">
+    <img [src]="'assets/' + currentDataService.Config.schemaPic">    
 </div>
 
 <mat-form-field style="width: 75%; scroll-behavior: auto;">
@@ -7,6 +7,9 @@
 [(ngModel)]="sqlText"
  placeholder="Enter SQL query"></textarea>
 </mat-form-field>
+<button mat-icon-button (click)="showSolutionSQL()">
+    <mat-icon>visibility</mat-icon>
+</button>
  <br/>
 <button mat-flat-button mat-button color="primary"
 (click)="showSQL()">Run SQL</button>
@@ -18,8 +21,10 @@
 {{currentDataService.resultError}}
 </font>
 <br>
-<app-table-view style="margin: 5px; height: 200;"
+
+<app-table-view 
     *ngIf="currentDataService.Data"
     [content]="currentDataService.Data"></app-table-view>
+
 
 <app-gsi-solution></app-gsi-solution>
