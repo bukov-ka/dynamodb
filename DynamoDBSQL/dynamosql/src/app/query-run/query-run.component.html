@@ -62,8 +62,19 @@
 <br>
 <div>
     <button mat-flat-button mat-button color="primary"
+    class="vcentered"
+    style="vertical-align: middle;"
     [disabled]="f.invalid"
     (click)=runQuery()>Query</button>
+    <mat-icon class="vcentered" color="primary" *ngIf="success">check_circle</mat-icon>
+    <mat-icon class="vcentered" color="error" *ngIf="!success && success!=undefined">error</mat-icon>
+    <div>
+        <font color="red"
+        *ngIf="!success && success!=undefined"
+        >
+        Expected result is "{{expectedResult}}".
+        </font>
+    </div>
 </div>
 </form>
 </mat-expansion-panel>

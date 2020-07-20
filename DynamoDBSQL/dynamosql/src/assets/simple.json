@@ -1,7 +1,7 @@
 {
-  "name": "Simple",
-  "xlsxFile":"",
-  "schemaPic":"music.png",
+  "name": "Aggregates",
+  "xlsxFile": "",
+  "schemaPic": "music.png",
   "tableMapping": [
     {
       "table": "Music",
@@ -10,13 +10,20 @@
   ],
   "runs": [
     {
-      "name": "Simple query GSI",
-      "description": "Query data without any complications",
+      "name": "Simple access",
+      "description": "Get price of the song named 'Call Me Today' by John Doe",
       "result": [
-        2015
+        1.5
+      ]
+    },
+    {
+      "name": "Aggregates",
+      "description": "Get price of the album Unnamed by John Doe (sums all songs in the album)",
+      "result": [
+        7.5
       ]
     }
   ],
   "initialJoinSQL": "SELECT * FROM MUSIC",
-  "solutionSQL": "SELECT * FROM MUSIC"
+  "solutionSQL": "SELECT * FROM MUSIC \nUNION ALL\nSELECT artist, '#'+album as song, sum(price) as price FROM MUSIC\nGROUP BY artist, album"
 }

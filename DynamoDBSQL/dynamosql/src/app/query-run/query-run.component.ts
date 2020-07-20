@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import * as alasql from 'alasql';
 import { CurrentDataService } from '../services/current-data.service';
 import { RunConfig } from '../shared/run_config';
+import { element } from 'protractor';
 
 @Component({
   selector: 'app-query-run',
@@ -21,13 +22,15 @@ export class QueryRunComponent implements OnInit {
   sortKeyValue:string = "";
   descending: boolean = false;
   operator: string = "=val";
-  limit: string = "";    
+  limit: string = "";  
   limitOptions: {val:string, title:string}[]=[
     {"val":"", "title":"None"},
     {"val":"1", "title":"1"},
     {"val":"3", "title":"3"},
     {"val":"10", "title":"10"},
   ];
+  success:boolean;
+  expectedResult:string;
   
   constructor(public currentDataService: CurrentDataService) { }
 
@@ -83,9 +86,21 @@ export class QueryRunComponent implements OnInit {
     ${orderByExpression} `;
     alasql.default.promise(selectExpression, [this.currentDataService.Data])    
     .then(function(data){      
-      console.log(data);
+      var res =[];
+      data.forEach(element => {
+        res.push(element[self.resultKey]);
+      });    
+      if(JSON.stringify(res)==JSON.stringify(self.runConfig.result)) 
+      {
+        self.success=true;
+      }
+      else
+      {
+        self.success=false;
+        self.expectedResult=JSON.stringify(self.runConfig.result);
+      }
     }).catch(function(err){
-      this.resultError=err;
+      self.resultError=err;
       console.log(err);
     });
   }
