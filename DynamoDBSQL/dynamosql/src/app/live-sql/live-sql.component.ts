@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ɵCompiler_compileModuleSync__POST_R3__ } from '@angular/core';
 import { CurrentDataService } from '../services/current-data.service';
-import * as alasql from 'alasql';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { TasksConfigService } from '../services/tasks-config.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
+import alasql from 'alasql';
 
 
 @Component({
@@ -28,7 +28,6 @@ export class LiveSqlComponent implements OnInit {
         {
           var itemId=params['id'];
           var items=["","simple","one-to-many"];
-          console.log(itemId);
           taskConfigService.getConfig(items[itemId]).subscribe(s=>{
             this.currentDataService.Config = s;
             this.processNewConfig();
@@ -50,36 +49,51 @@ export class LiveSqlComponent implements OnInit {
     this.paramSubscription.unsubscribe();
   }
 
-  showSQL():void{
-    let sqlWithXlsxNames = this.sqlText;
+  showSQL():void{  
+      
     let config = this.currentDataService.Config;
-    let xlsxFile = config.xlsxFile;
-    config.tableMapping.forEach((s,i)=>{ // Replace table names to the XLSX paths
-      let regEx = new RegExp(`${s.table}`, "ig");
-      sqlWithXlsxNames = sqlWithXlsxNames.replace(regEx, `XLSX(\"assets/csv/${xlsxFile}\",  {sheetid:'${s.sheet}',headers:true})`);
-      }
-    )    
-    let unionReplaceRegEx = new RegExp(`(union all|union)`, "ig");        
-    var splittedSQL = sqlWithXlsxNames.replace(unionReplaceRegEx, '@').split('@'); // split the query by any 'union' clause
-    
-    let self = this;
-    var promises = [];
-    var res = [];
-    splittedSQL.forEach(s=>{
-      console.log("result SQL", s);
-      promises.push(        
-        alasql.default.promise(s)
-        .then(function(data){          
-          data.forEach((row)=>res.push(row)); // Push each row to the resulting table
-          self.currentDataService.Data=data;
-        }).catch(function(err){
-          self.currentDataService.setErrorState(err);      
-          console.log(self.currentDataService.resultError);
+    let xlsxFile = config.xlsxFile;        
+    var tableCreationPromises = [];
+    config.tableMapping.forEach((tableMappings,i)=>{ // Select all the tables in the database
+      let tableSelect=`select * from XLSX(\"assets/csv/${xlsxFile}\",  {sheetid:'${tableMappings.sheet}',headers:true});`;
+      tableCreationPromises.push(
+        alasql.promise(tableSelect).then(tableData=>{
+          alasql(`DROP TABLE IF EXISTS ${tableMappings.table}`);
+          alasql(`CREATE TABLE ${tableMappings.table}`);
+          alasql(`SELECT * INTO ${tableMappings.table} FROM ?`,[tableData]);
+        })
+        .catch(function(err){
+          // Here we can't get any user errors. Only internal errors are possible
+          console.error(err);
         })
       );
     });
-    Promise.all(promises).then(() =>     
-    self.currentDataService.Data=res);
+
+    // Wait for all the tables created
+    Promise.all(tableCreationPromises).then(() =>
+    //self.currentDataService.Data=res
+      this.ProcessSelectWithUnions(this.sqlText)    
+    );
+    
+  }
+
+  private ProcessSelectWithUnions(userSQL: string) {
+    let unionReplaceRegEx = new RegExp(`(union all|union)`, "ig");
+    var splittedSQL = userSQL.replace(unionReplaceRegEx, '@').split('@'); // split the query by any 'union' clause    
+    let self = this;
+    var promises = [];
+    var res = [];
+    splittedSQL.forEach(s => {
+      promises.push(alasql.promise(s)
+        .then(function (data) {
+          data.forEach((row) => res.push(row)); // Push each row to the resulting table
+          self.currentDataService.Data = data;
+        }).catch(function (err) {
+          self.currentDataService.setErrorState(err);
+          console.error(self.currentDataService.resultError);
+        }));
+    });
+    Promise.all(promises).then(() => self.currentDataService.Data = res);
   }
 
   showSolutionSQL(){

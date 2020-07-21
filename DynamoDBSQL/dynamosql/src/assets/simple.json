@@ -4,7 +4,7 @@
   "schemaPic": "music.png",
   "tableMapping": [
     {
-      "table": "Music",
+      "table": "music",
       "sheet": "simple"
     }
   ],
@@ -24,6 +24,6 @@
       ]
     }
   ],
-  "initialJoinSQL": "SELECT * FROM MUSIC",
-  "solutionSQL": "SELECT * FROM MUSIC \nUNION ALL\nSELECT artist, '#'+album as song, sum(price) as price FROM MUSIC\nGROUP BY artist, album"
+  "initialJoinSQL": "SELECT * FROM music",
+  "solutionSQL": "SELECT * FROM music \nUNION ALL\nSELECT artist, '#'+album as song, sum(price) as price FROM music\nGROUP BY artist, album"
 }

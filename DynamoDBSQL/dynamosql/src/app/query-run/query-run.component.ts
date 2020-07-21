@@ -30,8 +30,8 @@ export class QueryRunComponent implements OnInit {
     {"val":"10", "title":"10"},
   ];
   success:boolean;
-  expectedResult:string;
-  
+  expectedResult:string; // What we expect from the run
+  actualResult:string; // What we got from the run
   constructor(public currentDataService: CurrentDataService) { }
 
   ngOnInit(): void {
@@ -62,7 +62,7 @@ export class QueryRunComponent implements OnInit {
     }
     catch
     {
-      console.log(this.resultError);
+      console.error(this.resultError);
       return;
     }
     let self = this; 
@@ -98,10 +98,11 @@ export class QueryRunComponent implements OnInit {
       {
         self.success=false;
         self.expectedResult=JSON.stringify(self.runConfig.result);
+        self.actualResult=JSON.stringify(res);
       }
     }).catch(function(err){
       self.resultError=err;
-      console.log(err);
+      console.error(err);
     });
   }
 }
