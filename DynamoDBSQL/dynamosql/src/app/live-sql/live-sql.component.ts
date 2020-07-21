@@ -24,11 +24,17 @@ export class LiveSqlComponent implements OnInit {
     private taskConfigService: TasksConfigService,
     public dialog: MatDialog,
     ) { 
-      this.paramSubscription = route.params.subscribe(params=>console.log(params['id']));
-      taskConfigService.getConfig("simple").subscribe(s=>{
-        this.currentDataService.Config = s;
-        this.processNewConfig();
-      });
+      this.paramSubscription = route.params.subscribe(params=>
+        {
+          var itemId=params['id'];
+          var items=["","simple","one-to-many"];
+          console.log(itemId);
+          taskConfigService.getConfig(items[itemId]).subscribe(s=>{
+            this.currentDataService.Config = s;
+            this.processNewConfig();
+          });    
+        });
+      
   }
 
   processNewConfig(){
@@ -47,9 +53,10 @@ export class LiveSqlComponent implements OnInit {
   showSQL():void{
     let sqlWithXlsxNames = this.sqlText;
     let config = this.currentDataService.Config;
+    let xlsxFile = config.xlsxFile;
     config.tableMapping.forEach((s,i)=>{ // Replace table names to the XLSX paths
       let regEx = new RegExp(`${s.table}`, "ig");
-      sqlWithXlsxNames = sqlWithXlsxNames.replace(regEx, `XLSX(\"assets/csv/${s.sheet}\",  {headers:true})`);
+      sqlWithXlsxNames = sqlWithXlsxNames.replace(regEx, `XLSX(\"assets/csv/${xlsxFile}\",  {sheetid:'${s.sheet}',headers:true})`);
       }
     )    
     let unionReplaceRegEx = new RegExp(`(union all|union)`, "ig");        
@@ -59,7 +66,8 @@ export class LiveSqlComponent implements OnInit {
     var promises = [];
     var res = [];
     splittedSQL.forEach(s=>{
-      promises.push(
+      console.log("result SQL", s);
+      promises.push(        
         alasql.default.promise(s)
         .then(function(data){          
           data.forEach((row)=>res.push(row)); // Push each row to the resulting table

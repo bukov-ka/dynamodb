@@ -4,6 +4,7 @@ import { RunConfig as RunConfig } from '../run_config';
 /// Represents configuration of a task set to solve
 export class TaskConfig {
   name: string;
+  xlsxFile: string;
   tableMapping: MappingItem[];
   schemaPic: string;
   runs: RunConfig[];

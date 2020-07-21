@@ -1,6 +1,6 @@
 {
   "name": "Aggregates",
-  "xlsxFile": "",
+  "xlsxFile": "simple.xlsx",
   "schemaPic": "music.png",
   "tableMapping": [
     {

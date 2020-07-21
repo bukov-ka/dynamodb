@@ -1,0 +1,33 @@
+{
+  "name": "One-To-Many",
+  "xlsxFile": "one-to-many.xlsx",
+  "schemaPic": "one-to-many.png",
+  "tableMapping": [
+    {
+      "table": "user",
+      "sheet": "users"
+    },
+    {
+      "table": "organization",
+      "sheet": "orgs"
+    }
+  ],
+  "runs": [
+    {
+      "name": "Parent access",
+      "description": "Get organization name for the user 'Bill Gates'",
+      "result": [
+        "Microsoft"
+      ]
+    },
+    {
+      "name": "Parent table direct access",
+      "description": "Get the 'Google' company website",
+      "result": [
+        "google.com"
+      ]
+    }
+  ],
+  "initialJoinSQL": "SELECT * FROM user u join organization o on u.org_id=o.id",
+  "solutionSQL": "SELECT * FROM MUSIC \nUNION ALL\nSELECT artist, '#'+album as song, sum(price) as price FROM MUSIC\nGROUP BY artist, album"
+}

@@ -18,7 +18,7 @@ export class TasksConfigService {
       })
     };
 
-    return this.http.get<TaskConfig>('assets/simple.json', httpOptions)
+    return this.http.get<TaskConfig>('assets/'+name+'.json', httpOptions)
       .pipe(
         catchError(err => {
           return throwError(err);
