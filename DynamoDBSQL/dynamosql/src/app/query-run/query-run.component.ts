@@ -47,9 +47,9 @@ export class QueryRunComponent implements OnInit {
     }
   }
 
-  // Put quotes around string value
+  // Put quotes around string values
   quoteValue(val:any, column:string): string {
-    var result = typeof(this.currentDataService.Data[0][column])=='string'
+    var result = typeof(val)=='string'
     ?`\"${val}\"`:val;
     return result;
   }
