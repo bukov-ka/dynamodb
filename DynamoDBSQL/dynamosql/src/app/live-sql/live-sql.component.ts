@@ -71,7 +71,6 @@ export class LiveSqlComponent implements OnInit {
 
     // Wait for all the tables created
     Promise.all(tableCreationPromises).then(() =>
-    //self.currentDataService.Data=res
       this.ProcessSelectWithUnions(this.sqlText)    
     );
     
