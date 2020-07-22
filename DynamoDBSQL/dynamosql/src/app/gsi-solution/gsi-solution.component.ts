@@ -12,6 +12,18 @@ export class GsiSolutionComponent implements OnInit {
   primaryKey: string;
   sortKey: string = "";
   updateSubscription: Subscription;
+  _solutionRequested: boolean;
+  get SolutionRequested(): boolean{
+    return this._solutionRequested;
+  }
+  @Input()
+  set SolutionRequested(solution:boolean){
+    this._solutionRequested=solution;
+    if(solution){
+      this.primaryKey=this.currentDataService.Config.solutionPrimaryKey;
+      this.sortKey=this.currentDataService.Config.solutionSortKey;
+    }
+  }
 
   constructor(public currentDataService: CurrentDataService) { 
     this.updateSubscription = currentDataService.columnsUpdated.subscribe((m: Array<any>)=>{

@@ -20,5 +20,8 @@
 </mat-form-field>
 
 
-<app-query-run  [runConfig]="run" *ngFor="let run of currentDataService.Config?.runs" [primaryKey]="primaryKey" [sortKey]="sortKey"></app-query-run>
+<app-query-run [runConfig]="run" 
+*ngFor="let run of currentDataService.Config?.runs"
+[primaryKey]="primaryKey" [sortKey]="sortKey"
+[SolutionRequested]="SolutionRequested"></app-query-run>
 </div>

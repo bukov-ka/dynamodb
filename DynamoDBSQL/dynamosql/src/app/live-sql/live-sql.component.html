@@ -26,4 +26,4 @@ cdkTextareaAutosize
 <app-table-view 
     *ngIf="currentDataService.Data"
     [content]="currentDataService.Data"></app-table-view>
-<app-gsi-solution></app-gsi-solution>
+<app-gsi-solution [SolutionRequested]="solutionRequested"></app-gsi-solution>

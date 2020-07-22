@@ -16,7 +16,8 @@ import alasql from 'alasql';
 })
 export class LiveSqlComponent implements OnInit {
 
-  sqlText:string;
+  sqlText: string;
+  solutionRequested: boolean;
 
   private paramSubscription: Subscription;
   constructor(public currentDataService: CurrentDataService,
@@ -28,8 +29,8 @@ export class LiveSqlComponent implements OnInit {
         {
           var itemId=params['id'];
           var items=["","simple","one-to-many"];
-          taskConfigService.getConfig(items[itemId]).subscribe(s=>{
-            this.currentDataService.Config = s;
+          taskConfigService.getConfig(items[itemId]).subscribe(config=>{
+            this.currentDataService.Config = config;
             this.processNewConfig();
           });    
         });
@@ -103,6 +104,10 @@ export class LiveSqlComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if(result) {
         this.sqlText = this.currentDataService.Config.solutionSQL;
+        this.solutionRequested=false; // Reset the value to rerun the fields update
+        setTimeout(() => {
+          this.solutionRequested=true;  
+        }, 0);        
       }
     });
   }

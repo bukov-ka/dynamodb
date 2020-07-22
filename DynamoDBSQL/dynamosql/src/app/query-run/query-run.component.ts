@@ -32,6 +32,22 @@ export class QueryRunComponent implements OnInit {
   success:boolean;
   expectedResult:string; // What we expect from the run
   actualResult:string; // What we got from the run
+  _solutionRequested: boolean;
+  get SolutionRequested(): boolean{
+    return this._solutionRequested;
+  }
+  @Input()
+  set SolutionRequested(solution:boolean){
+    this._solutionRequested=solution;
+    if(solution){
+      this.primaryKeyValue=this.runConfig.solutionKeyValues.primaryKeyValue;
+      this.sortKeyValue=this.runConfig.solutionKeyValues.sortKeyValue;
+      this.descending=this.runConfig.solutionKeyValues.descending;
+      this.descending=this.runConfig.solutionKeyValues.descending;
+      this.operator = this.runConfig.solutionKeyValues.operator;
+      this.resultKey = this.runConfig.solutionKeyValues.resultKey;
+    }
+  }
   constructor(public currentDataService: CurrentDataService) { }
 
   ngOnInit(): void {

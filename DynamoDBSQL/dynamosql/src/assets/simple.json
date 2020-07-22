@@ -14,16 +14,30 @@
       "description": "Get price of the song named 'Call Me Today' by John Doe",
       "result": [
         1.5
-      ]
+      ],
+      "solutionKeyValues":{
+        "primaryKeyValue": "John Doe",
+        "sortKeyValue":"Call Me Today",
+        "operator": "=val",
+        "resultKey": "price"
+      }
     },
     {
       "name": "Aggregates",
       "description": "Get price of the album Unnamed by John Doe (sums all songs in the album)",
       "result": [
         7.5
-      ]
+      ],
+      "solutionKeyValues":{
+        "primaryKeyValue": "John Doe",
+        "sortKeyValue":"#Unknown",
+        "operator": "=val",
+        "resultKey": "price"
+      }
     }
   ],
   "initialJoinSQL": "SELECT * FROM music",
-  "solutionSQL": "SELECT * FROM music \nUNION ALL\nSELECT artist, '#'+album as song, sum(price) as price FROM music\nGROUP BY artist, album"
+  "solutionSQL": "SELECT * FROM music \nUNION ALL\nSELECT artist, '#'+album as song, sum(price) as price FROM music\nGROUP BY artist, album",
+  "solutionPrimaryKey": "artist",
+  "solutionSortKey": "song"
 }

@@ -10,4 +10,6 @@ export class TaskConfig {
   runs: RunConfig[];
   initialJoinSQL: string;
   solutionSQL: string;
+  solutionPrimaryKey: string;
+  solutionSortKey: string;
 }
