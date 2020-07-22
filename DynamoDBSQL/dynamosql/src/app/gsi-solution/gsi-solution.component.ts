@@ -13,37 +13,35 @@ export class GsiSolutionComponent implements OnInit {
   sortKey: string = "";
   updateSubscription: Subscription;
   _solutionRequested: boolean;
-  get SolutionRequested(): boolean{
+  get SolutionRequested(): boolean {
     return this._solutionRequested;
   }
   @Input()
-  set SolutionRequested(solution:boolean){
-    this._solutionRequested=solution;
-    if(solution){
-      this.primaryKey=this.currentDataService.Config.solutionPrimaryKey;
-      this.sortKey=this.currentDataService.Config.solutionSortKey;
+  set SolutionRequested(solution: boolean) {
+    this._solutionRequested = solution;
+    if (solution) {
+      this.primaryKey = this.currentDataService.Config.solutionPrimaryKey;
+      this.sortKey = this.currentDataService.Config.solutionSortKey;
     }
   }
 
-  constructor(public currentDataService: CurrentDataService) { 
-    this.updateSubscription = currentDataService.columnsUpdated.subscribe((m: Array<any>)=>{
-      if(m == null)
-      {
-        this.primaryKey="";
-        this.sortKey="";
+  constructor(public currentDataService: CurrentDataService) {
+    this.updateSubscription = currentDataService.columnsUpdated.subscribe((m: Array<any>) => {
+      if (m == null) {
+        this.primaryKey = "";
+        this.sortKey = "";
       }
-      else
-      {
-        this.primaryKey=currentDataService.columns[0];
-        this.sortKey="";
+      else {
+        this.primaryKey = currentDataService.columns[0];
+        this.sortKey = "";
       }
-    });    
+    });
   }
 
   ngOnInit(): void {
   }
-  
-  ngOnDestroy():any{
+
+  ngOnDestroy(): any {
     this.updateSubscription.unsubscribe();
-  }  
+  }
 }

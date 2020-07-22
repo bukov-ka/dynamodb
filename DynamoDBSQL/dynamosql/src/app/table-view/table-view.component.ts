@@ -13,7 +13,7 @@ export class TableViewComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  getColumns():Array<string> {    
+  getColumns(): Array<string> {
     return this.currentDataService.getColumns(this.content);
   }
 

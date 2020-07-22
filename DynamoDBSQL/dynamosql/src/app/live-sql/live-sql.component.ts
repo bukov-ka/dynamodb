@@ -24,57 +24,56 @@ export class LiveSqlComponent implements OnInit {
     private route: ActivatedRoute,
     private taskConfigService: TasksConfigService,
     public dialog: MatDialog,
-    ) { 
-      this.paramSubscription = route.params.subscribe(params=>
-        {
-          var itemId=params['id'];
-          var items=["","simple","one-to-many"];
-          taskConfigService.getConfig(items[itemId]).subscribe(config=>{
-            this.currentDataService.Config = config;
-            this.processNewConfig();
-          });    
-        });
-      
+  ) {
+    this.paramSubscription = route.params.subscribe(params => {
+      var itemId = params['id'];
+      var items = ["", "simple", "one-to-many"];
+      taskConfigService.getConfig(items[itemId]).subscribe(config => {
+        this.currentDataService.Config = config;
+        this.processNewConfig();
+      });
+    });
+
   }
 
-  processNewConfig(){
+  processNewConfig() {
     var config = this.currentDataService.Config;
     this.sqlText = config.initialJoinSQL;
   }
-  
 
-  ngOnInit(): void {  
+
+  ngOnInit(): void {
   }
-    
-  ngOnDestroy():any{
+
+  ngOnDestroy(): any {
     this.paramSubscription.unsubscribe();
   }
 
-  showSQL():void{  
-      
+  showSQL(): void {
+
     let config = this.currentDataService.Config;
-    let xlsxFile = config.xlsxFile;        
+    let xlsxFile = config.xlsxFile;
     var tableCreationPromises = [];
-    config.tableMapping.forEach((tableMappings,i)=>{ // Select all the tables in the database
-      let tableSelect=`select * from XLSX(\"assets/csv/${xlsxFile}\",  {sheetid:'${tableMappings.sheet}',headers:true});`;
+    config.tableMapping.forEach((tableMappings, i) => { // Select all the tables in the database
+      let tableSelect = `select * from XLSX(\"assets/csv/${xlsxFile}\",  {sheetid:'${tableMappings.sheet}',headers:true});`;
       tableCreationPromises.push(
-        alasql.promise(tableSelect).then(tableData=>{
+        alasql.promise(tableSelect).then(tableData => {
           alasql(`DROP TABLE IF EXISTS ${tableMappings.table}`);
           alasql(`CREATE TABLE ${tableMappings.table}`);
-          alasql(`SELECT * INTO ${tableMappings.table} FROM ?`,[tableData]);
+          alasql(`SELECT * INTO ${tableMappings.table} FROM ?`, [tableData]);
         })
-        .catch(function(err){
-          // Here we can't get any user errors. Only internal errors are possible
-          console.error(err);
-        })
+          .catch(function (err) {
+            // Here we can't get any user errors. Only internal errors are possible
+            console.error(err);
+          })
       );
     });
 
     // Wait for all the tables created
     Promise.all(tableCreationPromises).then(() =>
-      this.ProcessSelectWithUnions(this.sqlText)    
+      this.ProcessSelectWithUnions(this.sqlText)
     );
-    
+
   }
 
   private ProcessSelectWithUnions(userSQL: string) {
@@ -96,21 +95,21 @@ export class LiveSqlComponent implements OnInit {
     Promise.all(promises).then(() => self.currentDataService.Data = res);
   }
 
-  showSolutionSQL(){
+  showSolutionSQL() {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       width: '350px',
       data: "You will get complete SQL and will lost an opportunity to solve it all by yourself. Ok?"
     });
     dialogRef.afterClosed().subscribe(result => {
-      if(result) {
+      if (result) {
         this.sqlText = this.currentDataService.Config.solutionSQL;
-        this.solutionRequested=false; // Reset the value to rerun the fields update
+        this.solutionRequested = false; // Reset the value to rerun the fields update
         setTimeout(() => {
-          this.solutionRequested=true;  
-        }, 0);        
+          this.solutionRequested = true;
+        }, 0);
       }
     });
   }
 
-  
+
 }

@@ -19,7 +19,7 @@
       "result": [
         "Microsoft"
       ],
-      "solutionKeyValues":{
+      "solutionKeyValues": {
         "primaryKeyValue": "Bill Gates",
         "resultKey": "org_name"
       }
@@ -30,7 +30,7 @@
       "result": [
         "google.com"
       ],
-      "solutionKeyValues":{
+      "solutionKeyValues": {
         "primaryKeyValue": "#ORG Google",
         "resultKey": "org_name"
       }

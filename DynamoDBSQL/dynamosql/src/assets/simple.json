@@ -15,9 +15,9 @@
       "result": [
         1.5
       ],
-      "solutionKeyValues":{
+      "solutionKeyValues": {
         "primaryKeyValue": "John Doe",
-        "sortKeyValue":"Call Me Today",
+        "sortKeyValue": "Call Me Today",
         "operator": "=val",
         "resultKey": "price"
       }
@@ -28,9 +28,9 @@
       "result": [
         7.5
       ],
-      "solutionKeyValues":{
+      "solutionKeyValues": {
         "primaryKeyValue": "John Doe",
-        "sortKeyValue":"#Unknown",
+        "sortKeyValue": "#Unknown",
         "operator": "=val",
         "resultKey": "price"
       }

@@ -16,34 +16,34 @@ export class QueryRunComponent implements OnInit {
   @Input()
   public runConfig: RunConfig;
 
-  resultError: string = null;  
+  resultError: string = null;
   resultKey: string = "";
-  primaryKeyValue:string = "";
-  sortKeyValue:string = "";
+  primaryKeyValue: string = "";
+  sortKeyValue: string = "";
   descending: boolean = false;
   operator: string = "=val";
-  limit: string = "";  
-  limitOptions: {val:string, title:string}[]=[
-    {"val":"", "title":"None"},
-    {"val":"1", "title":"1"},
-    {"val":"3", "title":"3"},
-    {"val":"10", "title":"10"},
+  limit: string = "";
+  limitOptions: { val: string, title: string }[] = [
+    { "val": "", "title": "None" },
+    { "val": "1", "title": "1" },
+    { "val": "3", "title": "3" },
+    { "val": "10", "title": "10" },
   ];
-  success:boolean;
-  expectedResult:string; // What we expect from the run
-  actualResult:string; // What we got from the run
+  success: boolean;
+  expectedResult: string; // What we expect from the run
+  actualResult: string; // What we got from the run
   _solutionRequested: boolean;
-  get SolutionRequested(): boolean{
+  get SolutionRequested(): boolean {
     return this._solutionRequested;
   }
   @Input()
-  set SolutionRequested(solution:boolean){
-    this._solutionRequested=solution;
-    if(solution){
-      this.primaryKeyValue=this.runConfig.solutionKeyValues.primaryKeyValue;
-      this.sortKeyValue=this.runConfig.solutionKeyValues.sortKeyValue;
-      this.descending=this.runConfig.solutionKeyValues.descending;
-      this.descending=this.runConfig.solutionKeyValues.descending;
+  set SolutionRequested(solution: boolean) {
+    this._solutionRequested = solution;
+    if (solution) {
+      this.primaryKeyValue = this.runConfig.solutionKeyValues.primaryKeyValue;
+      this.sortKeyValue = this.runConfig.solutionKeyValues.sortKeyValue;
+      this.descending = this.runConfig.solutionKeyValues.descending;
+      this.descending = this.runConfig.solutionKeyValues.descending;
       this.operator = this.runConfig.solutionKeyValues.operator;
       this.resultKey = this.runConfig.solutionKeyValues.resultKey;
     }
@@ -53,27 +53,26 @@ export class QueryRunComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  checkNullPrimaryKey(){
+  checkNullPrimaryKey() {
     for (let index = 0; index < this.currentDataService.Data.length; index++) {
       const element = this.currentDataService.Data[index];
-      if(element[this.primaryKey] == undefined || element[this.primaryKey] == ''){
-        this.resultError='Primary Key cannot contain nulls.';        
+      if (element[this.primaryKey] == undefined || element[this.primaryKey] == '') {
+        this.resultError = 'Primary Key cannot contain nulls.';
         throw new Error(this.resultError);
       }
     }
   }
 
   // Put quotes around string values
-  quoteValue(val:any, column:string): string {
-    var result = typeof(val)=='string'
-    ?`\"${val}\"`:val;
+  quoteValue(val: any, column: string): string {
+    var result = typeof (val) == 'string'
+      ? `\"${val}\"` : val;
     return result;
   }
 
-  runQuery(){
-    this.resultError=null;
-    try
-    {
+  runQuery() {
+    this.resultError = null;
+    try {
       this.checkNullPrimaryKey();
     }
     catch
@@ -81,44 +80,41 @@ export class QueryRunComponent implements OnInit {
       console.error(this.resultError);
       return;
     }
-    let self = this; 
-    let topExpression = this.limit?`top ${this.limit}`:"";
-    let descendingExpression = this.descending?'desc':'asc'    
-    let orderByExpression = this.sortKey?
-                            `order by ${this.sortKey} ${descendingExpression}, ${this.primaryKey}`
-                            :`order by ${this.primaryKey}`;    
+    let self = this;
+    let topExpression = this.limit ? `top ${this.limit}` : "";
+    let descendingExpression = this.descending ? 'desc' : 'asc'
+    let orderByExpression = this.sortKey ?
+      `order by ${this.sortKey} ${descendingExpression}, ${this.primaryKey}`
+      : `order by ${this.primaryKey}`;
     let sortKeyQuoted = this.sortKeyValue;
-    if(this.currentDataService.Data.length>0 && !this.operator.includes('LIKE'))
-    {
+    if (this.currentDataService.Data.length > 0 && !this.operator.includes('LIKE')) {
       sortKeyQuoted = this.quoteValue(this.sortKeyValue, this.sortKey);
     }
     let primaryKeyValueQuoted = this.quoteValue(this.primaryKeyValue, this.primaryKey);
     let sortKeyExpression = `${this.sortKey} ${this.operator}`.replace(/val/gi, sortKeyQuoted);
-    let whereExpression = this.sortKey?
-    `where  ${this.primaryKey} = ${primaryKeyValueQuoted} AND ${sortKeyExpression}`
-    :`where  ${this.primaryKey} = ${primaryKeyValueQuoted}`;
+    let whereExpression = this.sortKey ?
+      `where  ${this.primaryKey} = ${primaryKeyValueQuoted} AND ${sortKeyExpression}`
+      : `where  ${this.primaryKey} = ${primaryKeyValueQuoted}`;
     let selectExpression = `select ${topExpression} * from ? data \
     ${whereExpression} \
     ${orderByExpression} `;
-    alasql.default.promise(selectExpression, [this.currentDataService.Data])    
-    .then(function(data){      
-      var res =[];
-      data.forEach(element => {
-        res.push(element[self.resultKey]);
-      });    
-      if(JSON.stringify(res)==JSON.stringify(self.runConfig.result)) 
-      {
-        self.success=true;
-      }
-      else
-      {
-        self.success=false;
-        self.expectedResult=JSON.stringify(self.runConfig.result);
-        self.actualResult=JSON.stringify(res);
-      }
-    }).catch(function(err){
-      self.resultError=err;
-      console.error(err);
-    });
+    alasql.default.promise(selectExpression, [this.currentDataService.Data])
+      .then(function (data) {
+        var res = [];
+        data.forEach(element => {
+          res.push(element[self.resultKey]);
+        });
+        if (JSON.stringify(res) == JSON.stringify(self.runConfig.result)) {
+          self.success = true;
+        }
+        else {
+          self.success = false;
+          self.expectedResult = JSON.stringify(self.runConfig.result);
+          self.actualResult = JSON.stringify(res);
+        }
+      }).catch(function (err) {
+        self.resultError = err;
+        console.error(err);
+      });
   }
 }
