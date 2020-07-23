@@ -49,7 +49,7 @@ export class LiveSqlComponent implements OnInit {
     this.paramSubscription.unsubscribe();
   }
 
-  showSQL(): void {
+  executeSQL(): void {
 
     let config = this.currentDataService.Config;
     let xlsxFile = config.xlsxFile;
@@ -103,6 +103,7 @@ export class LiveSqlComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.sqlText = this.currentDataService.Config.solutionSQL;
+        this.executeSQL();
         this.solutionRequested = false; // Reset the value to rerun the fields update
         setTimeout(() => {
           this.solutionRequested = true;
