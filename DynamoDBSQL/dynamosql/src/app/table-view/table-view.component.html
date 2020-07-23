@@ -1,5 +1,14 @@
-<h3>Table Content</h3>
-<mat-table mat-table [dataSource]="content" class="mat-elevation-z8">
+<mat-expansion-panel [expanded]="true" #panel  class="mat-elevation-z8">
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      <mat-icon>{{panel.expanded  ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}</mat-icon>
+      Data
+    </mat-panel-title>
+    <mat-panel-description>
+      Result of executing the SQL query which represents content of DynamoSQL
+    </mat-panel-description>
+  </mat-expansion-panel-header> 
+<mat-table mat-table [dataSource]="content">
     <ng-container *ngFor="let col of getColumns()" [matColumnDef]="col">
         <mat-header-cell *matHeaderCellDef>{{col}}</mat-header-cell>
         <mat-cell *matCellDef="let element"> {{element[col]}}</mat-cell>
@@ -8,3 +17,4 @@
     <mat-row *matRowDef="let row; columns: getColumns();">        
     </mat-row>
 </mat-table>
+</mat-expansion-panel>

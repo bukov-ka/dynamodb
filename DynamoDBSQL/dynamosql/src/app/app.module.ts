@@ -22,6 +22,7 @@ import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { QueryRunComponent } from './query-run/query-run.component';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 import 'alasql';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 
@@ -50,6 +51,7 @@ import 'alasql';
     MatExpansionModule,
     MatIconModule,
     MatDialogModule,
+    MatTooltipModule
   ],
   providers: [],
   bootstrap: [AppComponent]
