@@ -1,4 +1,4 @@
-<div *ngIf="currentDataService.Data" style="padding: 10px;" >
+<div *ngIf="currentDataService.Data">
 <h3>Define a Global Secondary Index for the table</h3>
 <mat-form-field>
     <mat-label>Primary Key</mat-label>
@@ -18,8 +18,6 @@
     </mat-option>
     </mat-select>
 </mat-form-field>
-
-
 <app-query-run [runConfig]="run" 
 *ngFor="let run of currentDataService.Config?.runs"
 [primaryKey]="primaryKey" [sortKey]="sortKey"

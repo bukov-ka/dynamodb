@@ -1,4 +1,5 @@
-<div *ngIf="currentDataService.Config">
+<h1 *ngIf="currentDataService.Config">{{currentDataService.Config.name}}</h1>
+<div *ngIf="currentDataService.Config" class="dbSchemeImage">
     <img [src]="'assets/' + currentDataService.Config.schemaPic">    
 </div>
 
