@@ -64,7 +64,7 @@
     class="vcentered"
     style="vertical-align: middle;"
     [disabled]="f.invalid"
-    (click)=runQuery()>Query</button>
+    (click)=runQuery() matTooltip="Run the query and check the result">Query</button>
     <mat-icon class="vcentered" color="primary" *ngIf="success">check_circle</mat-icon>
     <mat-icon class="vcentered" color="error" *ngIf="!success && success!=undefined">error</mat-icon>
     <div>
