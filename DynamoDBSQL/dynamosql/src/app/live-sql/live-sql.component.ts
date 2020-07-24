@@ -27,7 +27,7 @@ export class LiveSqlComponent implements OnInit {
   ) {
     this.paramSubscription = route.params.subscribe(params => {
       var itemId = params['id'];
-      var items = ["", "simple", "one-to-many", "many-to-many"];
+      var items = ["", "simple", "one-to-many", "many-to-many", "hierarcical-queries"];
       taskConfigService.getConfig(items[itemId]).subscribe(config => {
         this.currentDataService.Config = config;
         this.processNewConfig();

@@ -1,0 +1,61 @@
+{
+  "name": "Hierarcical Queries",
+  "xlsxFile": "hierarcical-queries.xlsx",
+  "schemaPic": "hierarcical-queries.png",
+  "tableMapping": [
+    {
+      "table": "shops",
+      "sheet": "shops"
+    }
+  ],
+  "runs": [
+    {
+      "name": "Get a particular element",
+      "description": "Get phone of the Starbucks having zip code 97086, Portland, OR, USA",
+      "result": [
+        "503-653-1256"
+      ],
+      "solutionKeyValues": {
+        "primaryKeyValue": "USA",
+        "sortKeyValue": "OR#Portland#97086",
+        "operator": "=val",
+        "resultKey": "phone"
+      }
+    },
+    {
+      "name": "Get all elements at the 3rd level",
+      "description": "Get phones of all Starbucks in Portland, OR, USA",
+      "result": [
+        "503-653-1256",
+        "503-284-4008",
+        "503-281-4946"
+      ],
+      "solutionKeyValues": {
+        "primaryKeyValue": "USA",
+        "sortKeyValue": "OR#Portland#",
+        "operator": " LIKE \"val%\" ",
+        "resultKey": "phone"
+      }
+    },
+    {
+      "name": "Get all elements at the top level",
+      "description": "Get phones of all Starbucks in Australia",
+      "result": [
+        "884-109-522",
+        "246-259-237",
+        "353-311-737"
+      ],
+      "solutionKeyValues": {
+        "primaryKeyValue": "AUSTRALIA",
+        "sortKeyValue": "",
+        "operator": " LIKE \"val%\" ",
+        "resultKey": "phone"
+      }
+    }
+  ],
+  "initialJoinSQL": "SELECT * FROM shops",
+  "solutionSQL": "SELECT country, state+'#'+city+'#'+zip_code as hierarcy_code, phone FROM shops",
+  "solutionPrimaryKey": "country",
+  "solutionSortKey": "hierarcy_code",
+  "solutionExplanation": "AWS recommed using Primary Key and additional GSI to implement this structure, and it is really better because we could avoid duplication. But as you can see the same can be implemented with a single GSI."
+}
