@@ -45,6 +45,7 @@ export class QueryRunComponent implements OnInit {
       this.descending = this.runConfig.solutionKeyValues.descending;
       this.descending = this.runConfig.solutionKeyValues.descending;
       this.operator = this.runConfig.solutionKeyValues.operator;
+      this.limit = this.runConfig.solutionKeyValues.limit.toString();
       this.resultKey = this.runConfig.solutionKeyValues.resultKey;
     }
   }

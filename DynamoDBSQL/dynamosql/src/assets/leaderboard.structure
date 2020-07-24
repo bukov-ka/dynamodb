@@ -1,0 +1,12 @@
+Table shops as s {
+  id int [pk]
+  user_name varchar
+  real_name varchar
+  country varchar
+  total_score int
+  today_score int
+
+  Indexes {
+    id [unique]
+  }
+}

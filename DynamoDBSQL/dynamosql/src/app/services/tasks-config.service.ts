@@ -11,7 +11,11 @@ export class TasksConfigService {
 
   constructor(private http: HttpClient) { }
 
-  getConfig(name: string): Observable<TaskConfig> {
+  getConfigById(id: number): Observable<TaskConfig> {
+    var items = ["", "simple", "one-to-many", "many-to-many", "hierarcical-queries", "leaderboard"];
+    return this.getConfig(items[id]);
+  }
+  private getConfig(name: string): Observable<TaskConfig> {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'

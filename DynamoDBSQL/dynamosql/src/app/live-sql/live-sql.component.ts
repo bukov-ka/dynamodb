@@ -26,9 +26,8 @@ export class LiveSqlComponent implements OnInit {
     public dialog: MatDialog,
   ) {
     this.paramSubscription = route.params.subscribe(params => {
-      var itemId = params['id'];
-      var items = ["", "simple", "one-to-many", "many-to-many", "hierarcical-queries"];
-      taskConfigService.getConfig(items[itemId]).subscribe(config => {
+      var itemId = params['id'];      
+      taskConfigService.getConfigById(itemId).subscribe(config => {
         this.currentDataService.Config = config;
         this.processNewConfig();
       });
@@ -57,14 +56,14 @@ export class LiveSqlComponent implements OnInit {
     config.tableMapping.forEach((tableMappings, i) => { // Select all the tables in the database
       let tableSelect = `select * from XLSX(\"assets/csv/${xlsxFile}\",  {sheetid:'${tableMappings.sheet}',headers:true});`;
       tableCreationPromises.push(
-        alasql.promise(tableSelect).then(tableData => {
+        alasql.promise(tableSelect).then(tableData => {          
           alasql(`DROP TABLE IF EXISTS ${tableMappings.table}`);
           alasql(`CREATE TABLE ${tableMappings.table}`);
           alasql(`SELECT * INTO ${tableMappings.table} FROM ?`, [tableData]);
         })
           .catch(function (err) {
             // Here we can't get any user errors. Only internal errors are possible
-            console.error(err);
+            console.error("Error getting table data: ",err);
           })
       );
     });
@@ -76,7 +75,7 @@ export class LiveSqlComponent implements OnInit {
 
   }
 
-  private ProcessSelectWithUnions(userSQL: string) {
+  private ProcessSelectWithUnions(userSQL: string) {    
     let unionReplaceRegEx = new RegExp(`(union all|union)`, "ig");
     var splittedSQL = userSQL.replace(unionReplaceRegEx, '@').split('@'); // split the query by any 'union' clause    
     let self = this;
