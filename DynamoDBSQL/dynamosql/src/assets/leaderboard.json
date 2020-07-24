@@ -11,54 +11,40 @@
   "runs": [
     {
       "name": "Highscores",
-      "description": "Get top 10 players (user names) ordered by their total scores (descending)",
+      "description": "Get top 3 USA players (user names) ordered by their total scores (descending)",
       "result": [
         "Dardoch",
-        "JJu",
-        "Dendi",
-        "Park Se-jun",
-        "Ferrari_430",
-        "FreedoM",
-        "JJoNak",
-        "MaDFroG",
-        "moon",
-        "Crimsix"
+        "Crimsix",
+        "Nadeshot"
       ],
       "solutionKeyValues": {
-        "primaryKeyValue": "leaderboard",
+        "primaryKeyValue": "USA",
         "sortKeyValue": "0",
         "operator": ">=val",
         "descending": "true",
-        "limit": 10,
+        "limit": 3,
         "resultKey": "user_name"
       }
     },
     {
       "name": "Highscores (today's)",
-      "description": "Get top 10 players (user names) based on their today's scores",
+      "description": "Get top 3 USA players (user names) based on their today's scores",
       "result": [
         "Dardoch",
-        "FreedoM",
-        "JJoNak",
-        "JJu",
-        "MaDFroG",
-        "moon",
         "Nadeshot",
-        "Ferrari_430",
-        "Dendi",
-        "Svenskeren"
+        "Ray Rizzo"
       ],
       "solutionKeyValues": {
-        "primaryKeyValue": "leaderboard",
+        "primaryKeyValue": "USA",
         "sortKeyValue": "0",
         "operator": "<=val",
-        "limit": 10,
+        "limit": 3,
         "resultKey": "user_name"
       }
     }
   ],
   "initialJoinSQL": "SELECT * FROM leaderboard",
-  "solutionSQL": "SELECT 'leaderboard' as stub, user_name, total_score as score FROM leaderboard\nUNION ALL\nSELECT 'leaderboard' as stub, user_name, -today_score as score FROM leaderboard",
-  "solutionPrimaryKey": "stub",
+  "solutionSQL": "SELECT country, user_name, total_score as score FROM leaderboard\nUNION ALL\nSELECT country, user_name, -today_score as score FROM leaderboard",
+  "solutionPrimaryKey": "country",
   "solutionSortKey": "score"
 }
