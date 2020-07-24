@@ -26,6 +26,7 @@ import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { QueryRunComponent } from './query-run/query-run.component';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 import 'alasql';
+import { HomeComponent } from './home/home.component';
 
 
 
@@ -37,7 +38,8 @@ import 'alasql';
     GsiSolutionComponent,
     NavMenuComponent,
     QueryRunComponent,
-    ConfirmationDialogComponent
+    ConfirmationDialogComponent,
+    HomeComponent
   ],
   imports: [
     HttpClientModule,
