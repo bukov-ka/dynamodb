@@ -87,7 +87,7 @@ export class QueryRunComponent implements OnInit {
       `order by ${this.sortKey} ${descendingExpression}, ${this.primaryKey}`
       : `order by ${this.primaryKey}`;
     let sortKeyQuoted = this.sortKeyValue;
-    if (this.currentDataService.Data.length > 0 && !this.operator.includes('LIKE')) {
+    if (this.currentDataService.Data.length > 0 && (!this.sortKey == undefined || this.operator == undefined || !this.operator.includes('LIKE'))) {
       sortKeyQuoted = this.quoteValue(this.sortKeyValue, this.sortKey);
     }
     let primaryKeyValueQuoted = this.quoteValue(this.primaryKeyValue, this.primaryKey);
