@@ -36,8 +36,11 @@ export class LiveSqlComponent implements OnInit {
   }
 
   processNewConfig() {
+    this.solutionRequested = false; // No solution by default
     var config = this.currentDataService.Config;
-    this.sqlText = config.initialJoinSQL;
+    this.sqlText = config.initialJoinSQL;    
+    this.currentDataService.resetData();
+    
   }
 
 

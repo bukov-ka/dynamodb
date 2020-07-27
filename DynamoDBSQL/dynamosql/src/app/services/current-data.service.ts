@@ -59,4 +59,9 @@ export class CurrentDataService {
     this.resultError = error;
     this.columns = null;
   }
+
+  resetData(){
+    this.Data = null;
+    this.resultError = null;
+  }
 }
