@@ -1,79 +1,72 @@
 <hr>
 <mat-expansion-panel [expanded]="true" #panel class="mat-elevation-z8">
     <mat-expansion-panel-header>
-      <mat-panel-title>        
-        {{runConfig.name}}
-      </mat-panel-title>
-      <mat-panel-description>
-        {{runConfig.description}}
-      </mat-panel-description>
-    </mat-expansion-panel-header>  
-<form #f="ngForm">
-<mat-form-field>
-    <mat-label>Primary Key Value</mat-label>
-    <input matInput type="text" required
-    [(ngModel)]="primaryKeyValue"  name="primaryKeyValue">
-</mat-form-field>
-<br>
+        <mat-panel-title>
+            {{runConfig.name}}
+        </mat-panel-title>
+        <mat-panel-description>
+            {{runConfig.description}}
+        </mat-panel-description>
+    </mat-expansion-panel-header>
+    <form #f="ngForm">
+        <mat-form-field>
+            <mat-label>Primary Key Value</mat-label>
+            <input matInput type="text" required [(ngModel)]="primaryKeyValue" name="primaryKeyValue">
+        </mat-form-field>
+        <br>
 
-<mat-form-field *ngIf="sortKey">
-    <mat-label>Sort Key Value</mat-label>
-    <input matInput type="text" [(ngModel)]="sortKeyValue" name="sortKeyValue">
-</mat-form-field>  
+        <mat-form-field *ngIf="sortKey">
+            <mat-label>Sort Key Value</mat-label>
+            <input matInput type="text" [(ngModel)]="sortKeyValue" name="sortKeyValue">
+        </mat-form-field>
 
-<mat-form-field *ngIf="sortKey">
-    <mat-label>Operator</mat-label>
-    <mat-select style="width:64px"  [(ngModel)]="operator" name="operator">
-        <mat-option value="=val">=</mat-option>
-        <mat-option value="&gt;val">&gt;</mat-option>
-        <mat-option value="&gt;=val">&gt;=</mat-option>
-        <mat-option value="&lt;val">&lt;</mat-option>
-        <mat-option value="&lt;=val">&lt;=</mat-option>
-        <mat-option value=' LIKE "val%" '>begins_with()</mat-option>
-    </mat-select>
-</mat-form-field>
+        <mat-form-field *ngIf="sortKey">
+            <mat-label>Operator</mat-label>
+            <mat-select style="width:64px" [(ngModel)]="operator" name="operator">
+                <mat-option value="=val">=</mat-option>
+                <mat-option value="&gt;val">&gt;</mat-option>
+                <mat-option value="&gt;=val">&gt;=</mat-option>
+                <mat-option value="&lt;val">&lt;</mat-option>
+                <mat-option value="&lt;=val">&lt;=</mat-option>
+                <mat-option value=' LIKE "val%" '>begins_with()</mat-option>
+            </mat-select>
+        </mat-form-field>
 
-<mat-checkbox matInput type="checkbox"  *ngIf="sortKey"
-        [(ngModel)]="descending"  name="descending"
-        >Descending</mat-checkbox>
-<br>
-<mat-form-field>
-    <mat-label>Limit</mat-label>
-    <mat-select [(ngModel)]="limit" name="limit">
-        <mat-option *ngFor="let l of limitOptions" [value]="l.val">{{l.title}}</mat-option>
-    </mat-select>        
-</mat-form-field>
-<br>
-<mat-form-field>
-    <mat-label>Result Key</mat-label>
-    <mat-select  [(ngModel)]="resultKey" name="resultKey" required>
-    <mat-option *ngFor="let column of currentDataService.columns" [value]="column">
-        {{column}}
-    </mat-option>
-    </mat-select>        
-</mat-form-field>
-<br>  
-<font color="red"
-*ngIf="resultError"
->
-{{resultError}}
-</font>
-<br>
-<div>
-    <button mat-flat-button mat-button color="primary"
-    class="vcentered"
-    style="vertical-align: middle;"
-    [disabled]="f.invalid"
-    (click)=runQuery() matTooltip="Run the query and check the result">Query</button>
-    <mat-icon class="vcentered" color="primary" *ngIf="success">check_circle</mat-icon>
-    <mat-icon class="vcentered result-icon" color="error" *ngIf="!success && success!=undefined">error</mat-icon>
-    <div>
-        <font color="red"
-        *ngIf="!success && success!=undefined"
-        >
-        Expected result is "{{expectedResult}}" and we got "{{actualResult}}".
+        <mat-checkbox matInput type="checkbox" *ngIf="sortKey" [(ngModel)]="descending" name="descending">Descending
+        </mat-checkbox>
+        <br>
+        <mat-form-field>
+            <mat-label>Limit</mat-label>
+            <mat-select [(ngModel)]="limit" name="limit">
+                <mat-option *ngFor="let l of limitOptions" [value]="l.val">{{l.title}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <br>
+        <mat-form-field>
+            <mat-label>Result Key</mat-label>
+            <mat-select [(ngModel)]="resultKey" name="resultKey" required>
+                <mat-option *ngFor="let column of currentDataService.columns" [value]="column">
+                    {{column}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <br>
+        <font color="red" *ngIf="resultError">
+            {{resultError}}
         </font>
-    </div>
-</div>
-</form>
+        <br>
+        <div>
+            <button mat-flat-button mat-button color="primary" class="vcentered" style="vertical-align: middle;"
+                [disabled]="f.invalid" (click)=runQuery() matTooltip="Run the query and check the result">Query</button>
+            <mat-icon class="vcentered" color="primary" *ngIf="success">check_circle</mat-icon>
+            <font color="primary" *ngIf="success && success!=undefined">
+                Correct!
+            </font>
+            <mat-icon class="vcentered result-icon" color="error" *ngIf="!success && success!=undefined">error
+            </mat-icon>
+            <font color="red" *ngIf="!success && success!=undefined">
+                Expected result is "{{expectedResult}}" and we got "{{actualResult}}".
+            </font>
+        </div>
+    </form>
 </mat-expansion-panel>
