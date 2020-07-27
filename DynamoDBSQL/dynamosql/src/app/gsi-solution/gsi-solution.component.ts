@@ -22,8 +22,6 @@ export class GsiSolutionComponent implements OnInit {
     if (solution) {
       this.primaryKey = this.currentDataService.Config.solutionPrimaryKey;
       this.sortKey = this.currentDataService.Config.solutionSortKey;
-      console.log("PK", this.primaryKey);
-      console.log("SK", this.sortKey);
     }
   }
 

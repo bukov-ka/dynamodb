@@ -42,10 +42,9 @@ export class QueryRunComponent implements OnInit {
     if (solution) {
       this.primaryKeyValue = this.runConfig.solutionKeyValues.primaryKeyValue;
       this.sortKeyValue = this.runConfig.solutionKeyValues.sortKeyValue;
-      this.descending = this.runConfig.solutionKeyValues.descending;
-      this.descending = this.runConfig.solutionKeyValues.descending;
+      this.descending = this.runConfig.solutionKeyValues.descending ?? false;
       this.operator = this.runConfig.solutionKeyValues.operator;
-      this.limit = this.runConfig.solutionKeyValues.limit.toString();
+      this.limit = this.runConfig.solutionKeyValues.limit ? this.runConfig.solutionKeyValues.limit.toString() : undefined;
       this.resultKey = this.runConfig.solutionKeyValues.resultKey;
     }
   }
