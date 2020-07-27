@@ -1,0 +1,37 @@
+{
+  "name": "Sparse Index",
+  "xlsxFile": "sparse.xlsx",
+  "schemaPic": "sparse.png",
+  "tableMapping": [
+    {
+      "table": "users",
+      "sheet": "users"
+    },
+    {
+      "table": "tasks",
+      "sheet": "tasks"
+    }
+  ],
+  "runs": [
+    {
+      "name": "Sparse index select",
+      "description": "Get the highest priority item title assigned to the user 'Bill Gates'",
+      "result": [
+        "In IE 6.0 the site toolbox is shifted 1px to the right"
+      ],
+      "solutionKeyValues": {
+        "primaryKeyValue": "Billy Boy",
+        "sortKeyValue": "0",
+        "operator": ">val",
+        "limit": "1",
+        "descending": "true",
+        "resultKey": "title"
+      }
+    }
+  ],
+  "initialJoinSQL": "SELECT * FROM users u join tasks t on t.assignee=u.id",
+  "solutionSQL": "SELECT u.name, t.priority, t.title FROM users u join tasks t on t.assignee=u.id",
+  "solutionPrimaryKey": "name",
+  "solutionSortKey": "priority",
+  "solutionExplanation": ""
+}

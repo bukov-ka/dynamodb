@@ -54,16 +54,6 @@ export class QueryRunComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  checkNullPrimaryKey() {
-    for (let index = 0; index < this.currentDataService.Data.length; index++) {
-      const element = this.currentDataService.Data[index];
-      if (element[this.primaryKey] == undefined || element[this.primaryKey] == '') {
-        this.resultError = 'Primary Key cannot contain nulls.';
-        throw new Error(this.resultError);
-      }
-    }
-  }
-
   // Put quotes around string values
   quoteValue(val: any, column: string): string {
     var result = typeof (val) == 'string'
@@ -73,14 +63,6 @@ export class QueryRunComponent implements OnInit {
 
   runQuery() {
     this.resultError = null;
-    try {
-      this.checkNullPrimaryKey();
-    }
-    catch
-    {
-      console.error(this.resultError);
-      return;
-    }
     let self = this;
     let topExpression = this.limit ? `top ${this.limit}` : "";
     let descendingExpression = this.descending ? 'desc' : 'asc'

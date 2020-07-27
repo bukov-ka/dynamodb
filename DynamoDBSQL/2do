@@ -1,1 +1,8 @@
 Sort results before comparison
+
+
+        this.executeSQL();
+        this.solutionRequested = false; // Reset the value to rerun the fields update
+        setTimeout(() => {
+          this.solutionRequested = true;
+        },

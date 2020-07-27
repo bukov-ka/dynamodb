@@ -49,8 +49,7 @@ export class LiveSqlComponent implements OnInit {
   }
 
   executeSQL(): void {
-
-    let config = this.currentDataService.Config;
+  let config = this.currentDataService.Config;
     let xlsxFile = config.xlsxFile;
     var tableCreationPromises = [];
     config.tableMapping.forEach((tableMappings, i) => { // Select all the tables in the database
@@ -106,7 +105,7 @@ export class LiveSqlComponent implements OnInit {
         this.solutionRequested = false; // Reset the value to rerun the fields update
         setTimeout(() => {
           this.solutionRequested = true;
-        }, 0);
+        }, 100);
       }
     });
   }
