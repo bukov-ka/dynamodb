@@ -1,1 +1,37 @@
-<p>home works!</p>
+<div class="aboutText">
+<h2>About</h2>
+<p>With this site you get DynamoDB knowledge and train yourself for designing DynamoDB structure. 
+This site contains set of tasks each of which requires you to migrate SQL DB to DynamoDB.</p>
+
+<p>The main problem with studying DynamoDB is moving from relation-based paradigm to action-based paradigm.
+Even similar relational databases can be migrated to very different DynamoDB bases because they are used differently.
+We saw the same in relational DBs when a 'Full Name' field could be totally fine in one DB but the same field could violate the first normal form in another DB (if we use it to get a last name from it).</p>
+
+<p>That is why each task contain not only SQL DB scheme and data itself, but list of actions to be implemented.
+All of the actions should be fulfilled by using only one single Global Secondary Index Query.</p>
+
+<p>To form DynamoDB table you will use SQL which is a natural language designed for denormalization relational databased.
+<a href="http://alasql.org/">Alasql</a> is used as the SQL engine. It is pretty close to usual SQL, but it is case sensitive and supports union of sets with different attributes which is closer to Dynamodb.</p>
+
+<p>Solution of each task will require:</p>
+<ol>
+    <li>Creating SQL to transform SQL DB to DynamoDB data.</li>
+    <li>Defining fields for Primary Key and Sort Key (optionaly).</li>
+    <li>Setting query parameters for each task which will produce the desired output.</li>
+</ol>
+
+<p>Each task has sample solution. You can see it by clicking at the Solution button(<mat-icon>visibility</mat-icon>).
+But do not press it until you tried to find a solution yourself!</p>
+
+<p>If you have any questions or if you find any issues please do not hesitate to contact me: 
+<a href="mailto:borisovke@gmail.com?subject=DynamoSQL">Konstantin Borisov</a>.</p>
+
+<h2>Additional Materials</h2>
+<ul>
+    <li><a href="https://www.youtube.com/watch?v=jzeKPKpucS0">AWS re:Invent 2017: [REPEAT] Advanced Design Patterns for Amazon DynamoDB. by Rick Houlihan</a></li>
+    <li><a href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/bp-relational-modeling.html">Best Practices for Modeling Relational Data in DynamoDB</a></li>
+    <li><a href="https://www.dynamodbguide.com/data-modeling-overview">Data Modeling Examples</a></li>    
+</ul>
+</div>
+
+And now you can start the training: <a href="/item/1">The first challenge</a>
