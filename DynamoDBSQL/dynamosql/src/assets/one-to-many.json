@@ -12,6 +12,9 @@
       "sheet": "orgs"
     }
   ],
+  "actionsDescription":[
+    "Get organization to which a user belongs.",
+    "Get website of a given company."],
   "runs": [
     {
       "name": "Parent access",

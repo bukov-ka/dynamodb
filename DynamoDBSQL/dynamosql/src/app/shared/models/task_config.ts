@@ -1,10 +1,11 @@
 import { MappingItem } from './mapping_item';
-import { RunConfig as RunConfig } from '../run_config';
+import { RunConfig as RunConfig } from './run_config';
 
 /// Represents configuration of a task set to solve
 export class TaskConfig {
   name: string;
   xlsxFile: string;
+  actionsDescription: string[];
   tableMapping: MappingItem[];
   schemaPic: string;
   runs: RunConfig[];

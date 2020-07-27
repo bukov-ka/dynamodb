@@ -8,6 +8,9 @@
       "sheet": "leaderboard"
     }
   ],
+  "actionsDescription":[
+    "Get top 3 player user names from a particular country.",
+    "Get top 3 players having the highest scores today."],
   "runs": [
     {
       "name": "Highscores",

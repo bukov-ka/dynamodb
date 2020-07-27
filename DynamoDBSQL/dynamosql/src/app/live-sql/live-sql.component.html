@@ -1,6 +1,14 @@
 <h1 *ngIf="currentDataService.Config">{{currentDataService.Config.name}}</h1>
-<div *ngIf="currentDataService.Config" class="dbSchemeImage">
-    <img [src]="'assets/' + currentDataService.Config.schemaPic">    
+<div *ngIf="currentDataService.Config" class="schemaBlockWrapper">
+    <div  class="dbSchemeImage">
+        <img [src]="'assets/' + currentDataService.Config.schemaPic">    
+    </div>
+    <div>
+        <h3 class="actionsHeader">Actions:</h3>
+        <ul>
+            <li *ngFor="let action of currentDataService.Config.actionsDescription">{{action}}</li>
+        </ul>
+    </div>
 </div>
 
 <mat-form-field style="width: 75%; scroll-behavior: auto;">

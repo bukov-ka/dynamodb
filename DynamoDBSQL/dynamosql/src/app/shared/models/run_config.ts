@@ -1,8 +1,8 @@
-import { RunSolution } from './models/run_solution';
+import { RunSolution } from './run_solution';
 
 /// Represents configuration of a task for a query run
 export class RunConfig {
-  name: string;
+  name: string;  
   description: string;
   solutionKeyValues: RunSolution;
   result: any[];

@@ -12,6 +12,8 @@
       "sheet": "tasks"
     }
   ],
+  "actionsDescription":[
+    "Select highest priority items for a given user."],
   "runs": [
     {
       "name": "Sparse index select",

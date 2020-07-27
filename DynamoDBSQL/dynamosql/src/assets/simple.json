@@ -2,6 +2,9 @@
   "name": "Aggregates",
   "xlsxFile": "simple.xlsx",
   "schemaPic": "music.png",
+  "actionsDescription":[
+    "Get price of a particular song of a particular artist.",
+    "Get total price of an album of a particular artist (sum of the songs prices)."],
   "tableMapping": [
     {
       "table": "music",

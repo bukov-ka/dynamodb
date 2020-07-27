@@ -16,6 +16,9 @@
       "sheet": "u2g"
     }
   ],
+  "actionsDescription":[
+    "Get groups for a user.",
+    "List users in a group."],
   "runs": [
     {
       "name": "Groups for a user",

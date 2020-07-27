@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import * as alasql from 'alasql';
 import { CurrentDataService } from '../services/current-data.service';
-import { RunConfig } from '../shared/run_config';
+import { RunConfig } from '../shared/models/run_config';
 import { element } from 'protractor';
 
 @Component({

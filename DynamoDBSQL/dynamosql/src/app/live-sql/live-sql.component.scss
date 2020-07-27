@@ -1,3 +1,16 @@
 .dbSchemeImage {
     margin-bottom: 30px;
+    padding: 5px;
+}
+
+.schemaBlockWrapper {
+    display: grid;
+    justify-items: start;
+    grid-template-columns: auto 2fr;
+}
+
+.actionsHeader {
+    padding-top: 5px;
+    padding-left: 20px;
+    margin-bottom: 0px;
 }
