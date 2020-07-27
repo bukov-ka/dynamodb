@@ -1,7 +1,7 @@
 {
-  "name": "Hierarcical Queries",
-  "xlsxFile": "hierarcical-queries.xlsx",
-  "schemaPic": "hierarcical-queries.png",
+  "name": "Hierarchical Queries",
+  "xlsxFile": "hierarchical-queries.xlsx",
+  "schemaPic": "hierarchical-queries.png",
   "tableMapping": [
     {
       "table": "shops",

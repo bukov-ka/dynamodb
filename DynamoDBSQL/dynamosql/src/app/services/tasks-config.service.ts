@@ -12,7 +12,7 @@ export class TasksConfigService {
   constructor(private http: HttpClient) { }
 
   getConfigById(id: number): Observable<TaskConfig> {
-    var items = ["", "simple", "one-to-many", "many-to-many", "hierarcical-queries", "leaderboard", "sparse"];
+    var items = ["", "simple", "one-to-many", "many-to-many", "hierarchical-queries", "leaderboard", "sparse"];
     return this.getConfig(items[id]);
   }
   private getConfig(name: string): Observable<TaskConfig> {
