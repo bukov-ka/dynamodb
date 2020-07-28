@@ -51,7 +51,7 @@ export class LiveSqlComponent implements OnInit {
     this.paramSubscription.unsubscribe();
   }
 
-  executeSQL(): void {
+  executeSQL(callback?: () => void): void {
     let config = this.currentDataService.Config;
     let xlsxFile = config.xlsxFile;
     var tableCreationPromises = [];
@@ -72,12 +72,12 @@ export class LiveSqlComponent implements OnInit {
 
     // Wait for all the tables created
     Promise.all(tableCreationPromises).then(() =>
-      this.ProcessSelectWithUnions(this.sqlText)
+      this.ProcessSelectWithUnions(this.sqlText, callback)
     );
 
   }
 
-  private ProcessSelectWithUnions(userSQL: string) {
+  private ProcessSelectWithUnions(userSQL: string, callback?: () => void): void {
     let unionReplaceRegEx = new RegExp(`(union all|union)`, "ig");
     var splittedSQL = userSQL.replace(unionReplaceRegEx, '@').split('@'); // split the query by any 'union' clause    
     let self = this;
@@ -93,7 +93,12 @@ export class LiveSqlComponent implements OnInit {
           console.error(self.currentDataService.resultError);
         }));
     });
-    Promise.all(promises).then(() => self.currentDataService.Data = res);
+    Promise.all(promises).then(() => {
+      self.currentDataService.Data = res;
+      if(callback) { // Perform any post data
+        callback();
+      }
+    });
   }
 
   showSolutionSQL() {
@@ -104,11 +109,13 @@ export class LiveSqlComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.sqlText = this.currentDataService.Config.solutionSQL;
-        this.executeSQL();
-        this.solutionRequested = false; // Reset the value to rerun the fields update
-        setTimeout(() => {
-          this.solutionRequested = true;
-        }, 1000);
+        this.executeSQL(()=>
+          {
+          this.solutionRequested = false; // Reset the value to rerun the fields update
+          setTimeout(() => {
+            this.solutionRequested = true;
+          }, 100);
+        });
       }
     });
   }

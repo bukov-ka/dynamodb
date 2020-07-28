@@ -194,7 +194,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     var AppComponent = function AppComponent() {
       _classCallCheck(this, AppComponent);
 
-      this.title = 'DynamoDB trainer';
+      this.title = 'DynamoDB Trainer';
     };
 
     AppComponent.ɵfac = function AppComponent_Factory(t) {
@@ -235,7 +235,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](5, "h1");
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](6, "SQL to DynamoDB transformation trainer");
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](6, "SQL to DynamoDB Transformation Trainer");
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
@@ -1471,7 +1471,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         }
       }, {
         key: "executeSQL",
-        value: function executeSQL() {
+        value: function executeSQL(callback) {
           var _this3 = this;
 
           var config = this.currentDataService.Config;
@@ -1490,12 +1490,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           }); // Wait for all the tables created
 
           Promise.all(tableCreationPromises).then(function () {
-            return _this3.ProcessSelectWithUnions(_this3.sqlText);
+            return _this3.ProcessSelectWithUnions(_this3.sqlText, callback);
           });
         }
       }, {
         key: "ProcessSelectWithUnions",
-        value: function ProcessSelectWithUnions(userSQL) {
+        value: function ProcessSelectWithUnions(userSQL, callback) {
           var unionReplaceRegEx = new RegExp("(union all|union)", "ig");
           var splittedSQL = userSQL.replace(unionReplaceRegEx, '@').split('@'); // split the query by any 'union' clause    
 
@@ -1515,7 +1515,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             }));
           });
           Promise.all(promises).then(function () {
-            return self.currentDataService.Data = res;
+            self.currentDataService.Data = res;
+
+            if (callback) {
+              // Perform any post data
+              callback();
+            }
           });
         }
       }, {
@@ -1531,13 +1536,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             if (result) {
               _this4.sqlText = _this4.currentDataService.Config.solutionSQL;
 
-              _this4.executeSQL();
+              _this4.executeSQL(function () {
+                _this4.solutionRequested = false; // Reset the value to rerun the fields update
 
-              _this4.solutionRequested = false; // Reset the value to rerun the fields update
-
-              setTimeout(function () {
-                _this4.solutionRequested = true;
-              }, 100);
+                setTimeout(function () {
+                  _this4.solutionRequested = true;
+                }, 100);
+              });
             }
           });
         }

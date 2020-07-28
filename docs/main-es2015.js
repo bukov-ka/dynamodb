@@ -93,7 +93,7 @@ __webpack_require__.r(__webpack_exports__);
 
 class AppComponent {
     constructor() {
-        this.title = 'DynamoDB trainer';
+        this.title = 'DynamoDB Trainer';
     }
 }
 AppComponent.ɵfac = function AppComponent_Factory(t) { return new (t || AppComponent)(); };
@@ -108,7 +108,7 @@ AppComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineCompo
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](5, "h1");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](6, "SQL to DynamoDB transformation trainer");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](6, "SQL to DynamoDB Transformation Trainer");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
@@ -741,7 +741,7 @@ class LiveSqlComponent {
     ngOnDestroy() {
         this.paramSubscription.unsubscribe();
     }
-    executeSQL() {
+    executeSQL(callback) {
         let config = this.currentDataService.Config;
         let xlsxFile = config.xlsxFile;
         var tableCreationPromises = [];
@@ -758,9 +758,9 @@ class LiveSqlComponent {
             }));
         });
         // Wait for all the tables created
-        Promise.all(tableCreationPromises).then(() => this.ProcessSelectWithUnions(this.sqlText));
+        Promise.all(tableCreationPromises).then(() => this.ProcessSelectWithUnions(this.sqlText, callback));
     }
-    ProcessSelectWithUnions(userSQL) {
+    ProcessSelectWithUnions(userSQL, callback) {
         let unionReplaceRegEx = new RegExp(`(union all|union)`, "ig");
         var splittedSQL = userSQL.replace(unionReplaceRegEx, '@').split('@'); // split the query by any 'union' clause    
         let self = this;
@@ -776,7 +776,12 @@ class LiveSqlComponent {
                 console.error(self.currentDataService.resultError);
             }));
         });
-        Promise.all(promises).then(() => self.currentDataService.Data = res);
+        Promise.all(promises).then(() => {
+            self.currentDataService.Data = res;
+            if (callback) { // Perform any post data
+                callback();
+            }
+        });
     }
     showSolutionSQL() {
         const dialogRef = this.dialog.open(_confirmation_dialog_confirmation_dialog_component__WEBPACK_IMPORTED_MODULE_2__["ConfirmationDialogComponent"], {
@@ -786,11 +791,12 @@ class LiveSqlComponent {
         dialogRef.afterClosed().subscribe(result => {
             if (result) {
                 this.sqlText = this.currentDataService.Config.solutionSQL;
-                this.executeSQL();
-                this.solutionRequested = false; // Reset the value to rerun the fields update
-                setTimeout(() => {
-                    this.solutionRequested = true;
-                }, 100);
+                this.executeSQL(() => {
+                    this.solutionRequested = false; // Reset the value to rerun the fields update
+                    setTimeout(() => {
+                        this.solutionRequested = true;
+                    }, 100);
+                });
             }
         });
     }
