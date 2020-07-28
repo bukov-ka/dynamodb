@@ -1,0 +1,53 @@
+{
+  "name": "Leaderboard",
+  "xlsxFile": "leaderboard.xlsx",
+  "schemaPic": "leaderboard.png",
+  "tableMapping": [
+    {
+      "table": "leaderboard",
+      "sheet": "leaderboard"
+    }
+  ],
+  "actionsDescription":[
+    "Get top 3 player user names from a particular country.",
+    "Get top 3 players having the highest scores today."],
+  "runs": [
+    {
+      "name": "Highscores",
+      "description": "Get top 3 USA players (user names) ordered by their total scores (descending)",
+      "result": [
+        "Dardoch",
+        "Crimsix",
+        "Nadeshot"
+      ],
+      "solutionKeyValues": {
+        "primaryKeyValue": "USA",
+        "sortKeyValue": "0",
+        "operator": ">=val",
+        "descending": "true",
+        "limit": 3,
+        "resultKey": "user_name"
+      }
+    },
+    {
+      "name": "Highscores (today's)",
+      "description": "Get top 3 USA players (user names) based on their today's scores",
+      "result": [
+        "Dardoch",
+        "Nadeshot",
+        "Ray Rizzo"
+      ],
+      "solutionKeyValues": {
+        "primaryKeyValue": "USA",
+        "sortKeyValue": "0",
+        "operator": "<=val",
+        "limit": 3,
+        "resultKey": "user_name"
+      }
+    }
+  ],
+  "initialJoinSQL": "SELECT * FROM leaderboard",
+  "solutionSQL": "SELECT country, user_name, total_score as score FROM leaderboard\nUNION ALL\nSELECT country, user_name, -today_score as score FROM leaderboard",
+  "solutionPrimaryKey": "country",
+  "solutionSortKey": "score"
+}

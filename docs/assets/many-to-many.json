@@ -1,0 +1,52 @@
+{
+  "name": "Many-To-Many",
+  "xlsxFile": "many-to-many.xlsx",
+  "schemaPic": "many-to-many.png",
+  "tableMapping": [
+    {
+      "table": "users",
+      "sheet": "user"
+    },
+    {
+      "table": "groups",
+      "sheet": "group"
+    },
+    {
+      "table": "u2g",
+      "sheet": "u2g"
+    }
+  ],
+  "actionsDescription":[
+    "Get groups for a user.",
+    "List users in a group."],
+  "runs": [
+    {
+      "name": "Groups for a user",
+      "description": "Get all the groups the user 'Bill Gates' presents",
+      "result": [
+        "Admins",
+        "Employees"
+      ],
+      "solutionKeyValues": {
+        "primaryKeyValue": "#U Bill Gates",
+        "resultKey": "rname"
+      }
+    },
+    {
+      "name": "Users in a group",
+      "description": "Get all user names from the 'Admins' group",
+      "result": [
+        "Bill Gates",
+        "Billy Boy"
+      ],
+      "solutionKeyValues": {
+        "primaryKeyValue": "#G Admins",
+        "resultKey": "rname"
+      }
+    }
+  ],
+  "initialJoinSQL": "SELECT * FROM users u join u2g on u2g.user_id=u.id join groups g on u2g.group_id=g.id",
+  "solutionSQL": "SELECT '#U '+u.name as name, g.name as rname FROM users u join u2g on u2g.user_id=u.id join groups g on u2g.group_id=g.id\r\n union \r\nSELECT '#G '+g.name as name, u.name as rname FROM users u join u2g on u2g.user_id=u.id join groups g on u2g.group_id=g.id",
+  "solutionPrimaryKey": "name",
+  "solutionExplanation": "AWS recommed using Primary Key and additional GSI to implement this structure, and it is really better because we could avoid duplication. But as you can see the same can be implemented with a single GSI."
+}
