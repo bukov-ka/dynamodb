@@ -108,7 +108,7 @@ export class LiveSqlComponent implements OnInit {
         this.solutionRequested = false; // Reset the value to rerun the fields update
         setTimeout(() => {
           this.solutionRequested = true;
-        }, 100);
+        }, 1000);
       }
     });
   }
