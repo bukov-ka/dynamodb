@@ -1019,7 +1019,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       selectors: [["app-home"]],
       decls: 50,
       vars: 0,
-      consts: [[1, "aboutText"], ["href", "http://alasql.org/"], ["href", "mailto:borisovke@gmail.com?subject=DynamoSQL"], ["href", "https://www.youtube.com/watch?v=jzeKPKpucS0"], ["href", "https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/bp-relational-modeling.html"], ["href", "https://www.dynamodbguide.com/data-modeling-overview"], [1, "separateParagraph"], ["href", "/item/1"]],
+      consts: [[1, "aboutText"], ["href", "http://alasql.org/"], ["href", "mailto:borisovke@gmail.com?subject=DynamoSQL"], ["href", "https://www.youtube.com/watch?v=jzeKPKpucS0"], ["href", "https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/bp-relational-modeling.html"], ["href", "https://www.dynamodbguide.com/data-modeling-overview"], [1, "separateParagraph"], ["href", "dynamodb/item/1"]],
       template: function HomeComponent_Template(rf, ctx) {
         if (rf & 1) {
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
