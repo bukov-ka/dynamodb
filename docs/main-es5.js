@@ -996,6 +996,16 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     var _angular_material_icon__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
     /*! @angular/material/icon */
     "./node_modules/@angular/material/__ivy_ngcc__/fesm2015/icon.js");
+    /* harmony import */
+
+
+    var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! @angular/router */
+    "./node_modules/@angular/router/__ivy_ngcc__/fesm2015/router.js");
+
+    var _c0 = function _c0() {
+      return ["/item/1"];
+    };
 
     var HomeComponent = /*#__PURE__*/function () {
       function HomeComponent() {
@@ -1018,8 +1028,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       type: HomeComponent,
       selectors: [["app-home"]],
       decls: 50,
-      vars: 0,
-      consts: [[1, "aboutText"], ["href", "http://alasql.org/"], ["href", "mailto:borisovke@gmail.com?subject=DynamoSQL"], ["href", "https://www.youtube.com/watch?v=jzeKPKpucS0"], ["href", "https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/bp-relational-modeling.html"], ["href", "https://www.dynamodbguide.com/data-modeling-overview"], [1, "separateParagraph"], ["href", "dynamodb/item/1"]],
+      vars: 2,
+      consts: [[1, "aboutText"], ["href", "http://alasql.org/"], ["href", "mailto:borisovke@gmail.com?subject=DynamoSQL"], ["href", "https://www.youtube.com/watch?v=jzeKPKpucS0"], ["href", "https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/bp-relational-modeling.html"], ["href", "https://www.dynamodbguide.com/data-modeling-overview"], [1, "separateParagraph"], [3, "routerLink"]],
       template: function HomeComponent_Template(rf, ctx) {
         if (rf & 1) {
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
@@ -1174,8 +1184,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         }
+
+        if (rf & 2) {
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](47);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("routerLink", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction0"](1, _c0));
+        }
       },
-      directives: [_angular_material_icon__WEBPACK_IMPORTED_MODULE_1__["MatIcon"]],
+      directives: [_angular_material_icon__WEBPACK_IMPORTED_MODULE_1__["MatIcon"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterLinkWithHref"]],
       styles: [".mat-icon[_ngcontent-%COMP%] {\n  vertical-align: middle;\n}\n\n.aboutText[_ngcontent-%COMP%] {\n  max-width: 600px;\n}\n\n.separateParagraph[_ngcontent-%COMP%] {\n  padding-top: 40px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvaG9tZS9EOlxccHJvamVjdHNcXGR5bmFtb2RiL3NyY1xcYXBwXFxob21lXFxob21lLmNvbXBvbmVudC5zY3NzIiwic3JjL2FwcC9ob21lL2hvbWUuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxzQkFBQTtBQ0NKOztBRENBO0VBQ0ksZ0JBQUE7QUNFSjs7QURDQTtFQUNJLGlCQUFBO0FDRUoiLCJmaWxlIjoic3JjL2FwcC9ob21lL2hvbWUuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIubWF0LWljb24ge1xyXG4gICAgdmVydGljYWwtYWxpZ246IG1pZGRsZTtcclxufVxyXG4uYWJvdXRUZXh0IHtcclxuICAgIG1heC13aWR0aDogNjAwcHg7XHJcbn1cclxuXHJcbi5zZXBhcmF0ZVBhcmFncmFwaCB7XHJcbiAgICBwYWRkaW5nLXRvcDogNDBweDtcclxufSIsIi5tYXQtaWNvbiB7XG4gIHZlcnRpY2FsLWFsaWduOiBtaWRkbGU7XG59XG5cbi5hYm91dFRleHQge1xuICBtYXgtd2lkdGg6IDYwMHB4O1xufVxuXG4uc2VwYXJhdGVQYXJhZ3JhcGgge1xuICBwYWRkaW5nLXRvcDogNDBweDtcbn0iXX0= */"]
     });
     /*@__PURE__*/
