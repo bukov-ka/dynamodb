@@ -1,5 +1,7 @@
 # Dynamosql
 
+Try the [SQL to DynamoDB Transformation Trainer](https://bukov-ka.github.io/dynamodb/) online and read about the project in the [DynamoDB Design Trainer article](https://konstantin.gladyou.click/posts/2020-07-28-dynamodb-design-trainer/).
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.1.
 
 ## Development server
